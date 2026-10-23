@@ -9,7 +9,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 22V2M3 20L19 2M19 22V2M14.5 6.5L19 2' fill='none' stroke='%23D8AB5B' stroke-width='2.4' stroke-linecap='square'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets.css">
 </head>
 <body>
@@ -30,7 +30,7 @@
     </div>
     <div class="nav-right">
       <a class="login" href="login.html">Login</a>
-      <a class="btn btn-gold btn-sm" href="signup.html">Get Started</a>
+      <a class="btn btn-ink btn-sm" href="signup.html">Get Started</a>
       <button class="burger" id="burger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     </div>
   </div>
@@ -46,18 +46,26 @@
 
 <main id="main">
 
-<!-- HERO -->
+<!-- HERO · Classical Clarity -->
 <header class="hero">
-  <svg class="hero-watermark" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 22V2M3 20L19 2M19 22V2M14.5 6.5L19 2" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="square"/></svg>
-  <div class="wrap">
-    <div class="eyebrow">India's Legal Operating System · Est. 2025</div>
-    <h1>We simplify legal access for everyone.</h1>
-    <p class="sub">One platform. Founders and lawyers. Grounded in Indian law.</p>
-    <div class="hero-ctas">
-      <a class="btn btn-gold" href="#products">Explore products
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a class="btn btn-ghost" href="introspector.html">Try Introspector</a>
-      <span class="chip" style="align-self:center">24/7 AI assistant</span>
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <div class="eyebrow">India's Legal Operating System · Est. 2025</div>
+      <h1 class="hero-serif">Clarity in law.<br><span class="gold">Confidence</span><br>in every decision.</h1>
+      <p class="sub">Integrated legal services and technology for businesses, founders, and legal professionals, built around Indian law.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-ink" href="#products">Explore our services
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-outline" href="introspector.html">Discover the platform</a>
+      </div>
+      <div class="hero-strip">
+        <span>Legal Services</span><span class="sep"></span>
+        <span>Document Intelligence</span><span class="sep"></span>
+        <span>Regulatory Research</span>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <img src="hero-columns.png" alt="">
     </div>
   </div>
 </header>
