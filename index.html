@@ -4,288 +4,639 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
-<title>Turn2Law · India's Legal Operating System</title>
-<meta name="description" content="One platform. Founders and lawyers. Grounded in Indian law. Legal services, document generation, AI research, and a searchable resource hub.">
+<title>Turn2Law · Legal infrastructure for founders and lawyers</title>
+<meta name="description" content="India's Legal OS. Legal Services, DocEngine, and Introspector on one platform: human expertise and AI capability, for founders and practising lawyers.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 22V2M3 20L19 2M19 22V2M14.5 6.5L19 2' fill='none' stroke='%23D8AB5B' stroke-width='2.4' stroke-linecap='square'/%3E%3C/svg%3E">
+<script>document.documentElement.classList.add('js');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#D8AB5B; --gold-ink:#8A6A2F; --gold-soft:rgba(216,171,91,.13); --gold-line:rgba(216,171,91,.4);
+  --ink:#111111; --gray:#6F6F6F; --line:#EAEAEA; --white:#FFFFFF;
+  --navy:#0A1628; --surface:#F7F5F0; --soft:#FCFBF8;
+  --head:'Poppins',sans-serif; --body:'Inter',sans-serif; --mono:'DM Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--white);color:#2E2E2E;line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--head);font-weight:600;letter-spacing:-.02em;line-height:1.15;color:var(--ink)}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono)}
+::selection{background:var(--gold);color:var(--ink)}
+:focus-visible{outline:2px solid rgba(216,171,91,.5);outline-offset:2px;border-radius:3px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--gold);color:var(--ink);padding:10px 18px;z-index:99;font-weight:600}
+.skip:focus{left:0}
+
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:20px;height:1px;background:var(--gold);flex-shrink:0}
+.section{padding:92px 0}
+.section.soft{background:var(--soft)}
+.section-head{max-width:640px;margin-bottom:48px}
+.section-head h2{font-size:clamp(25px,3.4vw,36px);margin-bottom:12px}
+.section-head p{color:var(--gray);font-size:17px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--head);font-weight:600;font-size:15px;padding:13px 26px;border-radius:5px;transition:.18s ease;cursor:pointer;border:1px solid transparent}
+.btn svg{width:15px;height:15px;flex-shrink:0}
+.btn-gold{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.btn-gold:hover{background:#C9973F;border-color:#C9973F;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:#D8D8D8}
+.btn-ghost:hover{border-color:var(--ink);background:var(--surface)}
+
+/* reveal: visible resting state, animated only when JS is present */
+.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .js .reveal{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+
+/* 0 announcement */
+.announce{background:var(--white);border-bottom:1px solid var(--line);text-align:center;padding:8px 16px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--gray)}
+.announce .dot{display:inline-block;width:6px;height:6px;border-radius:99px;background:var(--gold);margin-right:9px;vertical-align:1px}
+.announce b{color:var(--ink);font-weight:500}
+
+/* 1 nav */
+.nav{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px;gap:18px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand svg{width:22px;height:22px}
+.brand .word{font-family:var(--head);font-weight:700;font-size:18px;letter-spacing:.01em;color:var(--ink)}
+.brand .word i{font-style:normal;color:var(--gold-ink)}
+.nav-links{display:flex;gap:26px;font-size:14.5px;font-weight:500}
+.nav-links a{color:var(--gray);transition:color .15s}
+.nav-links a:hover{color:var(--ink)}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-right .login{font-size:14.5px;font-weight:500;color:var(--gray)}
+.nav-right .login:hover{color:var(--ink)}
+.nav-right .btn{padding:10px 20px;font-size:14px}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:6px;cursor:pointer;padding:8px}
+.burger svg{width:20px;height:20px;stroke:var(--ink)}
+.mmenu{display:none;flex-direction:column;padding:10px 24px 18px;border-top:1px solid var(--line);background:var(--white)}
+.mmenu a{padding:11px 0;font-size:15px;font-weight:500;color:var(--ink);border-bottom:1px solid var(--line)}
+.mmenu.open{display:flex}
+
+/* 2 hero */
+.hero{position:relative;overflow:hidden;padding:104px 0 88px;background:var(--white)}
+.hero-mark{position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:430px;height:430px;opacity:.055;color:var(--ink);pointer-events:none}
+.hero h1{font-size:clamp(34px,5vw,58px);max-width:720px;margin-bottom:20px}
+.hero .sub{font-size:18.5px;color:var(--gray);max-width:580px;margin-bottom:36px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.hero-meta{margin-top:40px;display:flex;gap:10px 26px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
+.hero-meta span{display:inline-flex;align-items:center;gap:8px}
+.hero-meta svg{width:13px;height:13px;stroke:var(--gold-ink)}
+
+/* 3 trusted strip */
+.trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--soft);padding:24px 0}
+.trust .label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);text-align:center;margin-bottom:14px}
+.trust .names{display:flex;justify-content:center;gap:14px 42px;flex-wrap:wrap;font-family:var(--mono);font-size:14px;letter-spacing:.06em;color:var(--ink)}
+
+/* 4 audience split */
+.audience{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.aud-card{border:1px solid var(--line);border-radius:10px;padding:38px 34px;background:var(--white);transition:border-color .2s,box-shadow .2s}
+.aud-card:hover{border-color:var(--gold-line);box-shadow:0 12px 32px rgba(17,17,17,.06)}
+.aud-card .ic{width:44px;height:44px;border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:22px}
+.aud-card .ic svg{width:22px;height:22px;stroke:var(--ink)}
+.aud-card h3{font-size:22px;margin-bottom:10px}
+.aud-card p{color:var(--gray);font-size:15.5px;margin-bottom:18px;max-width:420px}
+.aud-card ul{list-style:none;margin-bottom:24px}
+.aud-card li{font-size:14.5px;color:#3A3A3A;padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:flex-start}
+.aud-card li svg{width:14px;height:14px;stroke:var(--gray);flex-shrink:0;margin-top:5px}
+.aud-link{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:3px;transition:.15s}
+.aud-link:hover{border-color:var(--gold);color:var(--gold-ink)}
+
+/* 5 pillars */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.pillar{border:1px solid var(--line);border-radius:10px;padding:30px 26px;background:var(--white);transition:border-color .2s,transform .2s,box-shadow .2s;display:flex;flex-direction:column}
+.pillar:hover{border-color:var(--gold-line);transform:translateY(-3px);box-shadow:0 14px 34px rgba(17,17,17,.06)}
+.pillar .no{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--gray);text-transform:uppercase;margin-bottom:14px}
+.pillar h3{font-size:20px;margin-bottom:2px}
+.pillar .tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);border:1px solid var(--line);border-radius:99px;padding:4px 12px;align-self:flex-start;margin:12px 0 16px}
+.pillar p{font-size:14.5px;color:var(--gray);margin-bottom:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-family:var(--mono);font-size:11px;background:var(--surface);color:var(--gray);border:1px solid var(--line);border-radius:4px;padding:4px 10px}
+.responsible{margin-top:26px;border-left:3px solid var(--gold);background:var(--soft);padding:16px 22px;font-size:14px;color:var(--gray);border-radius:0 6px 6px 0}
+.responsible b{color:var(--ink)}
+
+/* 6 how it works */
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;position:relative}
+.step{border:1px solid var(--line);border-radius:10px;padding:28px 26px;background:var(--white)}
+.step .n{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;color:var(--gray);border:1px solid var(--line);border-radius:99px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:var(--surface);margin-bottom:18px}
+.step h3{font-size:17px;margin-bottom:8px}
+.step p{font-size:14px;color:var(--gray)}
+.step .flow{margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--gray)}
+.step .flow b{color:var(--gold-ink);font-weight:500}
+
+/* 7 feature mocks */
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:56px 0;border-top:1px solid var(--line)}
+.feature:first-of-type{border-top:0;padding-top:8px}
+.feature.flip .f-copy{order:2}
+.f-copy h3{font-size:22px;margin-bottom:12px}
+.f-copy p{color:var(--gray);font-size:15.5px;margin-bottom:16px;max-width:440px}
+.f-copy .mono-note{font-family:var(--mono);font-size:12px;color:var(--gray);letter-spacing:.03em}
+.mock{border:1px solid var(--line);border-radius:10px;background:var(--white);box-shadow:0 14px 36px rgba(17,17,17,.07);overflow:hidden}
+.mock-bar{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--surface)}
+.mock-bar .d{width:9px;height:9px;border-radius:99px;border:1px solid #D8D8D8}
+.mock-bar .t{font-family:var(--mono);font-size:11px;color:var(--gray);margin-left:6px;letter-spacing:.06em}
+.mock-body{padding:20px}
+/* calendar mock */
+.cal{width:100%;border-collapse:collapse;font-size:12px}
+.cal th{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--gray);padding:6px 8px;text-align:left;border-bottom:1px solid var(--line);text-transform:uppercase}
+.cal td{padding:8px;border-bottom:1px solid var(--line);color:#3A3A3A}
+.cal tr.hl td{background:var(--gold-soft)}
+.cal tr.hl td:first-child{border-left:3px solid var(--gold)}
+.cal .due{font-family:var(--mono);font-size:10.5px;color:var(--gold-ink)}
+/* docengine mock */
+.de-prompt{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:6px;padding:11px 14px;background:var(--soft);margin-bottom:14px}
+.de-prompt svg{width:15px;height:15px;stroke:var(--gray);flex-shrink:0}
+.de-prompt span{font-size:13px;color:var(--gray);font-style:italic}
+.de-doc{border:1px solid var(--line);border-radius:6px;padding:16px 18px}
+.de-doc .l{height:6px;border-radius:3px;background:var(--line);margin-bottom:8px}
+.de-doc .l.w1{width:62%}.de-doc .l.w2{width:88%}.de-doc .l.w3{width:74%}.de-doc .l.w4{width:44%}
+.de-flag{margin-top:14px;display:flex;gap:10px;align-items:flex-start;border:1px solid var(--gold-line);background:var(--gold-soft);border-radius:6px;padding:10px 12px}
+.de-flag svg{width:14px;height:14px;stroke:var(--gold-ink);flex-shrink:0;margin-top:2px}
+.de-flag div{font-size:12px;color:#3A3A3A}
+.de-flag b{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:2px}
+/* introspector mock */
+.in-q{font-family:var(--head);font-weight:600;font-size:14.5px;color:var(--ink);margin-bottom:10px}
+.in-a{font-size:13px;color:#3A3A3A;margin-bottom:14px}
+.in-a sup{font-family:var(--mono);font-size:9.5px;color:var(--gold-ink)}
+.cite{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.cite .nm{font-size:12.5px;font-weight:600;color:var(--ink)}
+.cite .rf{font-family:var(--mono);font-size:10.5px;color:var(--gray)}
+.cite .bd{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:3px;padding:2px 8px;color:var(--gray)}
+/* tracker mock */
+.trk{display:flex;flex-direction:column;gap:0}
+.trk-step{display:flex;gap:14px;align-items:flex-start;padding:10px 0}
+.trk-step .td{width:11px;height:11px;border-radius:99px;border:2px solid #D8D8D8;background:var(--white);margin-top:5px;flex-shrink:0;position:relative}
+.trk-step.done .td{border-color:var(--ink);background:var(--ink)}
+.trk-step.now .td{border-color:var(--gold);background:var(--gold)}
+.trk-step:not(:last-child) .td::after{content:"";position:absolute;top:11px;left:50%;transform:translateX(-50%);width:2px;height:34px;background:var(--line)}
+.trk-step h4{font-family:var(--head);font-size:14px;color:var(--ink)}
+.trk-step.done h4{color:var(--ink)}
+.trk-step p{font-size:12px;color:var(--gray)}
+.trk-step .own{font-family:var(--mono);font-size:10px;color:var(--gray);letter-spacing:.06em}
+
+/* 8 grid audiences */
+.grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.g6{background:var(--white);padding:26px 24px;transition:background .15s}
+.g6:hover{background:var(--soft)}
+.g6 .st{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:10px;display:block}
+.g6 h3{font-size:16px;margin-bottom:6px}
+.g6 p{font-size:13.5px;color:var(--gray)}
+
+/* 9 proof */
+.proof-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;margin-bottom:52px}
+.pstat{border-left:2px solid var(--line);padding-left:16px}
+.pstat .v{font-family:var(--head);font-weight:700;font-size:clamp(24px,2.8vw,32px);color:var(--ink)}
+.pstat .l{font-size:12.5px;color:var(--gray);line-height:1.5}
+.quote-wait{border:1px dashed #D8D8D8;border-radius:10px;padding:28px 30px;background:var(--white);display:flex;gap:18px;align-items:flex-start}
+.quote-wait svg{width:26px;height:26px;stroke:var(--gray);flex-shrink:0}
+.quote-wait h3{font-size:16px;margin-bottom:6px}
+.quote-wait p{font-size:14px;color:var(--gray);max-width:640px}
+
+/* 10 mission */
+.mission{max-width:780px;margin:0 auto;text-align:center}
+.mission .q{font-family:var(--head);font-weight:600;font-size:clamp(24px,3.4vw,34px);line-height:1.3;color:var(--ink);margin-bottom:20px;position:relative;padding-top:38px}
+.mission .q::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:40px;height:3px;background:var(--gold)}
+.mission p{color:var(--gray);font-size:16.5px;max-width:620px;margin:0 auto 26px}
+.mission .who{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray)}
+.mission .who b{color:var(--ink);font-weight:500}
+
+/* 11 security */
+.sec-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.sec-cell{background:var(--white);padding:26px 26px}
+.sec-cell svg{width:20px;height:20px;stroke:var(--ink);margin-bottom:14px}
+.sec-cell h3{font-size:15.5px;margin-bottom:6px}
+.sec-cell p{font-size:13.5px;color:var(--gray)}
+.sec-note{margin-top:26px;font-size:13.5px;color:var(--gray);max-width:760px}
+.sec-note b{color:var(--ink)}
+
+/* 12 navy CTA */
+.band{background:var(--navy);color:#9AA7BA;padding:92px 0;text-align:center}
+.band h2{color:#EDF1F8;font-size:clamp(27px,3.8vw,42px);max-width:640px;margin:0 auto 14px}
+.band p{max-width:520px;margin:0 auto 34px;font-size:16px}
+.band .hero-ctas{justify-content:center;margin-bottom:30px}
+.mail-copy{display:inline-flex;align-items:center;gap:0;border:1px solid rgba(255,255,255,.18);border-radius:6px;overflow:hidden}
+.mail-copy .addr{font-family:var(--mono);font-size:14px;color:#EDF1F8;padding:11px 18px}
+.mail-copy button{background:transparent;border:0;border-left:1px solid rgba(255,255,255,.18);color:#D8AB5B;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;cursor:pointer;transition:.15s}
+.mail-copy button:hover{background:rgba(216,171,91,.12)}
+.band .btn-gold{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.band .btn-gold:hover{background:#E2BC74;border-color:#E2BC74}
+.band .btn-ghost{background:transparent;color:#EDF1F8;border-color:rgba(255,255,255,.3)}
+.band .btn-ghost:hover{border-color:#EDF1F8;background:transparent;color:#FFFFFF}
+
+/* 13 footer */
+footer{background:var(--white);border-top:1px solid var(--line);padding:64px 0 36px;font-size:14px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:48px}
+.foot-grid h4{font-size:12px;font-family:var(--mono);font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:16px}
+.foot-grid a{display:block;padding:5px 0;color:var(--gray);transition:color .15s}
+.foot-grid a:hover{color:var(--gold-ink)}
+.foot-brand p{max-width:300px;font-size:13.5px;line-height:1.7;margin-top:14px;color:var(--gray)}
+.statutory{border-top:1px solid var(--line);padding-top:22px;font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;color:var(--gray);line-height:2}
+.disclaimer{font-size:12px;color:var(--gray);margin-top:12px;max-width:860px;line-height:1.7}
+
+@media(max-width:960px){
+  .pillars{grid-template-columns:1fr}
+  .audience{grid-template-columns:1fr}
+  .steps3{grid-template-columns:1fr}
+  .grid6{grid-template-columns:1fr 1fr}
+  .proof-stats{grid-template-columns:repeat(2,1fr);gap:26px}
+  .sec-grid{grid-template-columns:1fr}
+  .feature{grid-template-columns:1fr;gap:30px}
+  .feature.flip .f-copy{order:0}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:860px){
+  .nav-links{display:none}
+  .nav-right .login{display:none}
+  .nav-right .btn{display:none}
+  .burger{display:block}
+}
+@media(max-width:640px){
+  .grid6{grid-template-columns:1fr}
+  .proof-stats{grid-template-columns:1fr 1fr}
+  .section{padding:64px 0}
+  .hero{padding:72px 0 64px}
+  .hero-mark{width:280px;height:280px;right:-100px}
+  .wrap{padding:0 20px}
+  .quote-wait{flex-direction:column}
+}
+@media(max-width:420px){
+  .proof-stats{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr}
+  .mail-copy{flex-direction:column;width:100%}
+  .mail-copy .addr{border-bottom:1px solid rgba(255,255,255,.18)}
+  .mail-copy button{border-left:0;width:100%;padding:12px}
+}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="announce">Phase 1 first cohort: <b>onboarding now</b> · Legal Services and Doc Engine, built for founders</div>
+<!-- 0 announcement -->
+<div class="announce"><span class="dot" aria-hidden="true"></span>Phase 1 first cohort: <b>onboarding now</b> · Legal Services and DocEngine, built for founders</div>
 
-<nav class="nav" id="nav">
+<!-- 1 nav -->
+<nav class="nav" id="nav" aria-label="Main">
   <div class="wrap nav-inner">
-    <a class="logo" href="index.html">
-      <img src="logo-light.png" alt="Turn2Law">
+    <a class="brand" href="#top" aria-label="Turn2Law home">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 22V2M3 20L19 2M19 22V2M14.5 6.5L19 2" fill="none" stroke="#D8AB5B" stroke-width="2.4" stroke-linecap="square"/></svg>
+      <span class="word">TURN2<i>LAW</i></span>
     </a>
     <div class="nav-links">
-      <a href="legal-services.html">Legal Services</a>
-      <a href="docengine.html">Doc Engine</a>
-      <a href="introspector.html">Introspector</a>
-      <a href="resources.html">Resources</a>
+      <a href="#founders">For Founders</a>
+      <a href="#lawyers">For Lawyers</a>
+      <a href="#platform">Platform</a>
+      <a href="#security">Security</a>
     </div>
     <div class="nav-right">
-      <a class="login" href="login.html">Login</a>
-      <a class="btn btn-gold btn-sm" href="signup.html">Get Started</a>
+      <a class="login" href="login.html">Log in</a>
+      <a class="btn btn-gold" href="mailto:hello@turn2law.in?subject=Consultation%20request">Book a consult</a>
       <button class="burger" id="burger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     </div>
   </div>
-  <div class="mobile-menu" id="mmenu">
-    <a href="legal-services.html">Legal Services</a>
-    <a href="docengine.html">Doc Engine</a>
-    <a href="introspector.html">Introspector</a>
-    <a href="resources.html">Resources</a>
-    <a href="login.html">Login</a>
-    <a href="signup.html">Get Started</a>
+  <div class="mmenu" id="mmenu">
+    <a href="#founders">For Founders</a>
+    <a href="#lawyers">For Lawyers</a>
+    <a href="#platform">Platform</a>
+    <a href="#security">Security</a>
+    <a href="login.html">Log in</a>
+    <a href="mailto:hello@turn2law.in?subject=Consultation%20request">Book a consult</a>
   </div>
 </nav>
 
 <main id="main">
 
-<!-- HERO · Classical Clarity, full-bleed -->
-<header class="hero">
-  <div class="wrap hero-inner">
-    <div class="hero-copy">
-      <div class="hero-pills" aria-label="Platform areas">
-        <a href="legal-services.html">Legal Services</a>
-        <a href="docengine.html">Document Intelligence</a>
-        <a href="introspector.html">Regulatory Research</a>
-      </div>
-      <div class="eyebrow">India's Legal Operating System · Est. 2025</div>
-      <h1 class="hero-serif">Clarity in law.<br><span class="gold">Confidence</span><br>in every decision.</h1>
-      <p class="sub">Integrated legal services and technology for businesses, founders, and legal professionals, built around Indian law.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-gold" href="signup.html">Get Started
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="hero-link" href="introspector.html">Try Introspector
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      </div>
+<!-- 2 hero -->
+<header class="hero" id="top">
+  <svg class="hero-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 22V2M3 20L19 2M19 22V2M14.5 6.5L19 2" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="square"/></svg>
+  <div class="wrap">
+    <div class="eyebrow">India's Legal OS</div>
+    <h1>Legal infrastructure for founders and lawyers.</h1>
+    <p class="sub">One platform. Two audiences. Human expertise and AI capability are parts of the same product, organised into three pillars: Legal Services, DocEngine, and Introspector.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-gold" href="mailto:hello@turn2law.in?subject=Consultation%20request">Book a consultation
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-ghost" href="#split">Explore the platform</a>
+    </div>
+    <div class="hero-meta">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>MCA registered company</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>In-house lawyers, CA and CS</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>Est. 2025</span>
     </div>
   </div>
 </header>
 
-<!-- CLIENTS -->
-<div class="marquee">
-  <div class="label">Registered and under active compliance</div>
-  <div class="marquee-track">
-    <span>ICEBRKR</span><span>Sentinel Layer</span><span>Serene Neurotech</span><span>Motioncomm</span><span>Withera Labs</span>
-    <span>ICEBRKR</span><span>Sentinel Layer</span><span>Serene Neurotech</span><span>Motioncomm</span><span>Withera Labs</span>
+<!-- 3 trusted by -->
+<div class="trust">
+  <div class="wrap">
+    <div class="label">Registered and under active compliance</div>
+    <div class="names"><span>ICEBRKR</span><span>Sentinel Layer</span><span>Serene Neurotech</span><span>Motioncomm</span><span>Withera Labs</span></div>
   </div>
 </div>
 
-<!-- FOUR PRODUCTS -->
-<section class="section" id="products">
+<!-- 4 audience split -->
+<section class="section" id="split">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">One platform, two audiences</div>
+      <h2>Built for both sides of the table.</h2>
+      <p>Whether you are building a company or arguing a case, Turn2Law removes the legal friction in your way.</p>
+    </div>
+    <div class="audience">
+      <div class="aud-card reveal" id="founders">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6M2 21h20"/></svg></div>
+        <h3>For Founders</h3>
+        <p>Incorporate with the whole price visible up front. Never miss a filing. Draft the NDA tonight, not next week.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Company incorporation with transparent pricing</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>ROC and GST compliance on a calendar that cannot miss</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Documents drafted in minutes, clauses explained</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>A named professional owner on every matter</li>
+        </ul>
+        <a class="aud-link" href="legal-services.html">Start with Legal Services</a>
+      </div>
+      <div class="aud-card reveal" id="lawyers">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 3v18M5 7l7-4 7 4M3 21h18M8 7v10M16 7v10"/></svg></div>
+        <h3>For Lawyers</h3>
+        <p>An AI research bench behind you: precedent search, statute mapping, and case organisation, with a citation on every claim.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Precedent search ranked by facts, not keywords</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Statute mapping across IPC, BNS, CrPC, BNSS, and BSA</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Case files that organise themselves, with timelines</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>A privileged vault, per-case access, every access logged</li>
+        </ul>
+        <a class="aud-link" href="introspector.html">Join the Introspector pilot</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 pillars -->
+<section class="section soft" id="platform">
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">The platform</div>
-      <h2>Four products. One legal OS.</h2>
-      <p>Legal services, document generation, AI research, and a searchable resource hub. One connected platform grounded in Indian law.</p>
+      <h2>Three pillars. One system.</h2>
+      <p>Everything Turn2Law builds lives inside one of three pillars, from the first document a founder drafts to the last argument a lawyer makes in court.</p>
     </div>
-    <div class="grid-2">
-      <a class="card reveal" href="introspector.html">
-        <span class="tag" style="margin-bottom:14px;display:inline-block">01 · Introspector</span>
-        <h3>Introspector</h3>
-        <p style="margin-bottom:16px">The lawyer's AI research bench. Precedent search, statute mapping, and case strategy, with a citation on every claim it makes.</p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px"><span class="chip">IPC → BNS</span><span class="chip">Precedents</span><span class="chip">Cited</span></div>
-        <span class="mono" style="font-size:12.5px;color:var(--ink)">Meet the bench →</span>
-      </a>
-      <a class="card reveal" href="legal-services.html">
-        <span class="tag" style="margin-bottom:14px;display:inline-block">02 · Legal Services</span>
+    <div class="pillars">
+      <div class="pillar reveal">
+        <div class="no">Pillar 01</div>
         <h3>Legal Services</h3>
-        <p style="margin-bottom:16px">Done right, not just fast. Incorporation, compliance, trademark, and advisory, delivered by an in-house bench of lawyers, CAs, and CS professionals.</p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px"><span class="chip">Incorporation</span><span class="chip">GST · MSME</span><span class="chip">ROC</span><span class="chip">Trademark</span></div>
-        <span class="mono" style="font-size:12.5px;color:var(--ink)">See the catalogue →</span>
-      </a>
-      <a class="card reveal" href="docengine.html">
-        <span class="tag" style="margin-bottom:14px;display:inline-block">03 · Doc Engine</span>
-        <h3>Doc Engine</h3>
-        <p style="margin-bottom:16px">Generate NDAs, agreements, legal notices, and contracts in minutes. Plain language in, an India-specific drafted document out.</p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px"><span class="chip">NDA</span><span class="chip">Founders' Agmt</span><span class="chip">Employment</span><span class="chip">Notice</span></div>
-        <span class="mono" style="font-size:12.5px;color:var(--ink)">Draft a document →</span>
-      </a>
-      <a class="card reveal" href="resources.html">
-        <span class="tag" style="margin-bottom:14px;display:inline-block">04 · Resources</span>
-        <h3>Resources</h3>
-        <p style="margin-bottom:16px">Legal news, case law, acts, templates, events, learning, and the official Turn2Law tools ecosystem.</p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px"><span class="chip">Case law</span><span class="chip">Templates</span><span class="chip">Events</span></div>
-        <span class="mono" style="font-size:12.5px;color:var(--ink)">Explore resources →</span>
-      </a>
+        <div class="tag">For founders and businesses</div>
+        <p>Human-delivered legal, compliance, and IP work through in-house lawyers, a CA, and a CS, sold and tracked like a modern product.</p>
+        <div class="chips"><span>Incorporation</span><span>Trademark and IP</span><span>GST and registrations</span><span>ROC compliance</span><span>Virtual GC</span></div>
+      </div>
+      <div class="pillar reveal">
+        <div class="no">Pillar 02</div>
+        <h3>DocEngine</h3>
+        <div class="tag">For founders and MSMEs</div>
+        <p>Plain language in, an India-specific drafted document out in minutes, with the option to bring in a Turn2Law lawyer when stakes rise.</p>
+        <div class="chips"><span>Prompt-to-document</span><span>Guided Q&amp;A</span><span>Risk flagging</span><span>13+ templates</span><span>E-signature</span></div>
+      </div>
+      <div class="pillar reveal">
+        <div class="no">Pillar 03</div>
+        <h3>Introspector</h3>
+        <div class="tag">For practising lawyers · Pilot</div>
+        <p>An AI research and strategy bench: precedent search, statute mapping, argument frameworks, and a privileged case vault.</p>
+        <div class="chips"><span>Precedent search</span><span>Statute mapping</span><span>Case timeline</span><span>Privileged vault</span><span>Briefs</span></div>
+      </div>
+    </div>
+    <div class="responsible reveal"><b>Responsible use, on every Introspector surface.</b> Research and analytics support a lawyer's judgment. They never replace it. Section recommendations must be reviewed by qualified counsel before use in any filing or court.</div>
+  </div>
+</section>
+
+<!-- 6 how it works -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">How it works</div>
+      <h2>From order to delivered, in the open.</h2>
+      <p>Every stage is visible live with a named owner. No email chains, no black boxes.</p>
+    </div>
+    <div class="steps3">
+      <div class="step reveal">
+        <div class="n">01</div>
+        <h3>Tell us what you need</h3>
+        <p>Pick a service or describe your matter. You see the scope, the documents required, and the price before anything begins.</p>
+      </div>
+      <div class="step reveal">
+        <div class="n">02</div>
+        <h3>We verify and file</h3>
+        <p>Your assigned professional collects KYC, prepares the paperwork, and files with the MCA or the relevant authority. You see who owns it.</p>
+        <div class="flow">Received <b>&gt;</b> Verified <b>&gt;</b> Filed</div>
+      </div>
+      <div class="step reveal">
+        <div class="n">03</div>
+        <h3>Track to delivered</h3>
+        <p>Everything lands in your locker, and your compliance calendar switches on so the next deadline never arrives unannounced.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- FRICTION REMOVED -->
-<section class="section soft" id="friction">
+<!-- 7 feature highlights with mocks -->
+<section class="section soft">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">What the platform does</div>
+      <div class="eyebrow">Inside the platform</div>
       <h2>Friction, removed piece by piece.</h2>
     </div>
-    <div class="grid-3">
-      <div class="card reveal">
+
+    <div class="feature reveal">
+      <div class="f-copy">
         <h3>Compliance calendar</h3>
-        <p>Deadlines surfaced before they are missed.</p>
-        <div style="margin-top:16px;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:var(--surface-2)">
-          <span class="mono" style="font-size:11px;color:var(--gold-ink)">14 DAYS</span>
-          <div style="font-size:13px;color:var(--text);margin-top:3px">to MGT-7 annual return · reminded on WhatsApp</div>
+        <p>Deadlines surfaced before they are missed, mapped to your entity type and jurisdiction, with reminders and professional-assisted execution.</p>
+        <div class="mono-note">AOC-4 · MGT-7 · DIR-3 KYC · GSTR-3B · DPT-3</div>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="mock-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">compliance · your company</span></div>
+        <div class="mock-body">
+          <table class="cal">
+            <thead><tr><th>Obligation</th><th>Due</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>MGT-7 annual return</td><td>14 days</td><td class="due">Reminded</td></tr>
+              <tr><td>GSTR-3B summary return</td><td>20 Jul</td><td>Scheduled</td></tr>
+              <tr><td>DPT-3 return of deposits</td><td>31 Jul</td><td>Scheduled</td></tr>
+              <tr><td>AOC-4 financial statements</td><td>29 Oct</td><td>Watching</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="card reveal">
-        <h3>Order tracking</h3>
-        <p>A named owner at every stage. Received to Delivered, visible live. No email chains.</p>
-        <div class="mono" style="margin-top:16px;font-size:12px;color:var(--muted)">Received → Verified → Filed → <span style="color:var(--gold-ink)">Delivered</span></div>
+    </div>
+
+    <div class="feature flip reveal">
+      <div class="f-copy">
+        <h3>DocEngine drafts</h3>
+        <p>Describe what you need in plain language. Get an India-specific document from a versioned clause library, with one-sided terms flagged before you sign.</p>
+        <div class="mono-note">NDA · Founders' agreement · Employment · Privacy policy · Term sheet</div>
       </div>
-      <div class="card reveal">
-        <h3>Doc Engine</h3>
-        <p>Drafts in under 60 seconds, assembled from a versioned, India-specific clause library.</p>
-        <div class="mono" style="margin-top:16px;font-size:12px;color:var(--muted)">&lt; 60s · clause library v-tracked</div>
+      <div class="mock" aria-hidden="true">
+        <div class="mock-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">docengine · new draft</span></div>
+        <div class="mock-body">
+          <div class="de-prompt"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M4 20h16M6 16l10.5-10.5a2.1 2.1 0 0 1 3 3L9 19l-5 1z"/></svg><span>a mutual NDA for a design agency engagement in Delhi</span></div>
+          <div class="de-doc">
+            <div class="l w1"></div><div class="l w2"></div><div class="l w3"></div><div class="l w2"></div><div class="l w4"></div>
+            <div class="de-flag">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M12 9v4M12 15.5h.01"/></svg>
+              <div><b>Clause flagged</b>Indemnity is one-sided. A plain-language explainer and a balanced alternative are shown beside the clause.</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="card reveal">
-        <h3>E-signature</h3>
-        <p>Sign online, audit trail included. Executed versions lock, exportable to PDF and DOCX forever.</p>
-        <div class="mono" style="margin-top:16px;font-size:12px;color:var(--muted)">Audit trail · PDF · DOCX · locked</div>
+    </div>
+
+    <div class="feature reveal">
+      <div class="f-copy">
+        <h3>Introspector, grounded answers</h3>
+        <p>Ask a question of Indian law and get an answer with authorities cited, formatted for filings. Uncited claims are blocked at the pipeline level.</p>
+        <div class="mono-note">BNS · BNSS · BSA · SCC · AIR, mapped both ways</div>
       </div>
-      <div class="card reveal">
-        <h3>Introspector</h3>
-        <p>Every claim carries a citation. Uncited research is blocked at the pipeline level.</p>
-        <div class="mono" style="margin-top:16px;font-size:12px;color:var(--muted)">0 uncited claims, by design</div>
+      <div class="mock" aria-hidden="true">
+        <div class="mock-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">introspector · research</span></div>
+        <div class="mock-body">
+          <div class="in-q">Can a dying declaration alone sustain a conviction under the BNS?</div>
+          <div class="in-a">A dying declaration under Section 26 of the BSA can be the sole basis for conviction where the court is satisfied it is voluntary and truthful<sup>1</sup>. Corroboration is a rule of prudence, not law<sup>2</sup>.</div>
+          <div class="cite"><span class="nm">Laxman v. State of Maharashtra</span><span class="rf">(2002) 6 SCC 710</span><span class="bd">Binding</span></div>
+          <div class="cite"><span class="nm">Khushal Rao v. State of Bombay</span><span class="rf">AIR 1958 SC 22</span><span class="bd">Followed</span></div>
+        </div>
       </div>
-      <div class="card reveal" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start">
-        <h3 style="font-size:19px">One login for all of it.</h3>
-        <p>Founders and lawyers work on the same system, each in their own workspace.</p>
-        <a class="btn btn-gold btn-sm" style="margin-top:14px" href="signup.html">Create free account</a>
+    </div>
+
+    <div class="feature flip reveal">
+      <div class="f-copy">
+        <h3>Order tracking, live</h3>
+        <p>A named owner at every stage, from Received to Delivered, visible live. Blockers are named in plain language, not buried in an inbox.</p>
+        <div class="mono-note">T2L-INV-YYYY-NNN · statutory block · no GSTIN until active</div>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="mock-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">matters · Pvt Ltd incorporation</span></div>
+        <div class="mock-body">
+          <div class="trk">
+            <div class="trk-step done"><div class="td"></div><div><h4>Received</h4><p>Order and matter created. Invoice issued within two minutes.</p></div></div>
+            <div class="trk-step done"><div class="td"></div><div><h4>Documents verified</h4><p>Each KYC item shows its status with a reason.</p></div></div>
+            <div class="trk-step now"><div class="td"></div><div><h4>Filed</h4><p>Filed with the MCA. <span class="own">Owner: assigned professional</span></p></div></div>
+            <div class="trk-step"><div class="td"></div><div><h4>Delivered</h4><p>Locker delivery, compliance calendar switches on.</p></div></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PILLAR 01 -->
-<section class="section" id="p1">
+<!-- 8 audience grid -->
+<section class="section">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">Pillar 01 · Legal Services</div>
-      <h2>Done right, not just fast.</h2>
-      <p>Human-delivered legal, compliance, and IP work, sold and tracked like a modern product. Incorporation, registrations, ROC compliance, trademark, and advisory, all on one platform with an in-house bench behind it.</p>
-      <div class="hero-ctas" style="margin:24px 0 0">
-        <a class="btn btn-gold btn-sm" href="legal-services.html">See the catalogue</a>
-        <a class="btn btn-ghost btn-sm" href="legal-services.html#pricing">View pricing</a>
-      </div>
+      <div class="eyebrow">Who we serve</div>
+      <h2>Every stage, every practice.</h2>
+      <p>Six segments, one system. Prioritise the first two at launch; the rest are served as the platform matures.</p>
     </div>
-    <div style="margin:10px 0 44px" class="reveal">
-      <div class="mono" style="font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:18px">Order · Received → Delivered</div>
-      <div class="flowline">
-        <div class="flow-node"><div class="dot"></div><h4>Received</h4><p>Order and matter created. Invoice issued within two minutes.</p></div>
-        <div class="flow-node"><div class="dot"></div><h4>Documents verified</h4><p>Each KYC item shows its status with a reason in plain language.</p></div>
-        <div class="flow-node"><div class="dot"></div><h4>Filed</h4><p>Your assigned professional files with the MCA. You see who owns it.</p></div>
-        <div class="flow-node"><div class="dot"></div><h4>Delivered</h4><p>Everything lands in your locker. Your compliance calendar switches on.</p></div>
-      </div>
+    <div class="grid6 reveal">
+      <div class="g6"><span class="st">Primary</span><h3>First-time founders</h3><p>Leaving a job to start a venture, setting up the legal backbone from day one.</p></div>
+      <div class="g6"><span class="st">Primary</span><h3>Startups and small businesses</h3><p>Incorporated companies managing compliance, contracts, hiring, and fundraising.</p></div>
+      <div class="g6"><span class="st">Secondary</span><h3>Ventures raising capital</h3><p>Navigating term sheets, ESOPs, cap tables, and FEMA / RBI requirements.</p></div>
+      <div class="g6"><span class="st">Later</span><h3>Non-profits and Section 8</h3><p>Mission-driven organisations needing registration and ongoing compliance.</p></div>
+      <div class="g6"><span class="st">Pilot</span><h3>Practising lawyers</h3><p>Independent advocates carrying research and case prep without a bench.</p></div>
+      <div class="g6"><span class="st">Later</span><h3>Chambers and legal teams</h3><p>Senior counsel, associates, and paralegals on shared case files.</p></div>
     </div>
   </div>
 </section>
 
-<!-- PILLAR 02 -->
-<section class="section soft" id="p2">
-  <div class="wrap">
-    <div class="grid-2" style="align-items:center;gap:56px">
-      <div class="reveal">
-        <div class="eyebrow">Pillar 02 · Doc Engine</div>
-        <h2 style="font-size:clamp(25px,3.4vw,36px)">Prompt in. Drafted document out.</h2>
-        <p style="color:var(--muted);margin-bottom:24px">A founder describes what they need in plain language and receives a well-drafted, India-specific legal document in minutes, with the option to bring in a Turn2Law lawyer when the stakes rise.</p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px">
-          <span class="chip">NDA</span><span class="chip">Founders' Agmt</span><span class="chip">Employment</span><span class="chip">Privacy Policy</span><span class="chip">Term Sheet</span>
-        </div>
-        <div class="hero-ctas" style="margin:0">
-          <a class="btn btn-gold btn-sm" href="docengine.html">Try Doc Engine</a>
-          <a class="btn btn-ghost btn-sm" href="docengine.html#wizard">See templates</a>
-        </div>
-      </div>
-      <div class="reveal">
-        <div class="steps">
-          <div class="step"><div class="n">01</div><div><h3>Prompt</h3><p>Describe what you need in plain language.</p></div></div>
-          <div class="step"><div class="n">02</div><div><h3>Review</h3><p>Every clause explained. One-sided terms flagged.</p></div></div>
-          <div class="step"><div class="n">03</div><div><h3>Execute</h3><p>Sign online, export to PDF and DOCX, kept forever.</p></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PILLAR 03 -->
-<section class="section" id="p3">
+<!-- 9 proof band, true figures only -->
+<section class="section soft">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">Pillar 03 · Introspector</div>
-      <h2>The bench you never had.</h2>
-      <p>An AI research and strategy agent for practising lawyers. Precedent search, statute mapping, and case organisation, with a citation on every claim it makes.</p>
-      <div class="hero-ctas" style="margin:24px 0 0">
-        <a class="btn btn-gold btn-sm" href="introspector.html">Join the pilot</a>
-        <a class="btn btn-ghost btn-sm" href="introspector.html#workflows">See capabilities</a>
-      </div>
+      <div class="eyebrow">Where we stand</div>
+      <h2>Real numbers, stated plainly.</h2>
+      <p>Only figures we can stand behind appear here. When a number changes, this section changes with it.</p>
     </div>
-    <div class="grid-4">
-      <div class="card reveal"><span class="tag" style="margin-bottom:12px;display:inline-block">Research</span><h3>Precedent search, cited</h3><p>Every claim carries a citation formatted for filings.</p></div>
-      <div class="card reveal"><span class="tag" style="margin-bottom:12px;display:inline-block">Statute maps</span><h3>IPC ↔ BNS, both ways</h3><p>Cross-mapped across IPC, CrPC, and the Evidence Act.</p></div>
-      <div class="card reveal"><span class="tag" style="margin-bottom:12px;display:inline-block">Case file</span><h3>Organises itself</h3><p>OCR and auto-classification of FIRs and orders.</p></div>
-      <div class="card reveal"><span class="tag" style="margin-bottom:12px;display:inline-block">Vault</span><h3>Privilege, by design</h3><p>Encrypted, per-case access, every access logged.</p></div>
+    <div class="proof-stats reveal">
+      <div class="pstat"><div class="v">5</div><div class="l">startups registered and under active compliance</div></div>
+      <div class="pstat"><div class="v">13+</div><div class="l">document templates in the DocEngine library</div></div>
+      <div class="pstat"><div class="v">3</div><div class="l">pillars on one shared platform</div></div>
+      <div class="pstat"><div class="v">43</div><div class="l">team members across 7 departments</div></div>
+      <div class="pstat"><div class="v">1</div><div class="l">in-house bench of lawyers, a CA, and a CS</div></div>
+    </div>
+    <div class="quote-wait reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg>
+      <div>
+        <h3>Client voices: awaiting a real client quote.</h3>
+        <p>This space stays empty until a named client says it on the record. No stock photos, no invented testimonials, ever.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- TWO AUDIENCES -->
+<!-- 10 founder mission -->
+<section class="section">
+  <div class="wrap">
+    <div class="mission reveal">
+      <div class="q">Justice should never depend on privilege.</div>
+      <p>Our mission is to remove legal friction wherever it slows people down, so that getting legal help is never harder than needing it. Access to law should not depend on connections, or the size of a legal budget.</p>
+      <div class="who"><b>Yash Phoghat</b> · Founder and CEO, Turn2Law</div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 security -->
+<section class="section soft" id="security">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Security and privacy</div>
+      <h2>Quietly, seriously, by design.</h2>
+      <p>Turn2Law processes sensitive legal and business documents. Here is the security model the platform is built on, stated as commitments, not marketing.</p>
+    </div>
+    <div class="sec-grid reveal">
+      <div class="sec-cell"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><h3>Tenant isolation</h3><p>Every record is scoped to its organisation. Access is enforced server-side with row-level checks, never by the frontend alone.</p></div>
+      <div class="sec-cell"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 15h8"/></svg><h3>Private document storage</h3><p>Documents live in private storage and are served only through short-lived signed URLs. No public buckets.</p></div>
+      <div class="sec-cell"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg><h3>Encryption and least privilege</h3><p>Encryption in transit and at rest. Risk-based MFA, least-privilege roles, and audited break-glass for administrators.</p></div>
+      <div class="sec-cell"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M9 2h6M12 2v5M19 10a7 7 0 1 0-14 0c0 4 3 6 3 8h8c0-2 3-4 3-8z"/><path d="M9 18h6"/></svg><h3>Append-only audit logs</h3><p>Every consequential action is logged to an append-only store. Access reviews are periodic and documented.</p></div>
+      <div class="sec-cell"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg><h3>Data residency in India</h3><p>Workloads and managed services run in Indian regions. A named subprocessor list is maintained and reviewed.</p></div>
+      <div class="sec-cell"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><h3>Your documents are not training data</h3><p>Confidential documents are not used to train public models. Production data is never used in development or testing.</p></div>
+    </div>
+    <p class="sec-note reveal"><b>No certification badges appear here.</b> Independent audits, penetration tests, and certifications will be listed in this section only when they exist and can be named.</p>
+  </div>
+</section>
+
+<!-- 12 navy CTA band -->
 <section class="band">
   <div class="wrap">
-    <div class="eyebrow reveal">One platform, two audiences</div>
-    <h2 class="reveal">Built for both sides of the table.</h2>
-    <p class="reveal">Whether you are building a company or arguing a case, Turn2Law removes the legal friction in your way.</p>
-    <div class="grid-2">
-      <div class="card reveal">
-        <span class="tag" style="margin-bottom:14px;display:inline-block;color:var(--band-gold);border-color:var(--band-line)">For founders</span>
-        <h3>Set up, stay compliant, and grow</h3>
-        <p>Incorporate with the whole price visible up front. Never miss a filing. Draft the NDA tonight, not next week.</p>
-        <a class="mono" href="legal-services.html" style="color:var(--band-gold);font-size:12.5px;margin-top:14px;display:inline-block">Start with Legal Services →</a>
-      </div>
-      <div class="card reveal">
-        <span class="tag" style="margin-bottom:14px;display:inline-block;color:var(--band-gold);border-color:var(--band-line)">For lawyers</span>
-        <h3>Research faster, with sources</h3>
-        <p>Precedent search and statute mapping that cite every claim. Your judgment, on a bigger bench.</p>
-        <a class="mono" href="introspector.html" style="color:var(--band-gold);font-size:12.5px;margin-top:14px;display:inline-block">Join the Introspector pilot →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-band" id="contact">
-  <div class="wrap">
-    <div class="eyebrow" style="justify-content:center">Get started</div>
-    <h2>Justice should never depend on privilege.</h2>
-    <p>Talk to the founder's office, request a demo, or start with a document.</p>
+    <h2>Let's build the future of legal access in India.</h2>
+    <p>Book a consultation, request a demo, or talk to the founder's office.</p>
     <div class="hero-ctas">
       <a class="btn btn-gold" href="mailto:hello@turn2law.in?subject=Consultation%20request">Book a consultation
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="btn btn-ghost" href="mailto:hello@turn2law.in?subject=Demo%20request">Request a demo</a>
     </div>
-    <div class="mail">hello@turn2law.in · turn2law.in</div>
+    <div class="mail-copy">
+      <span class="addr" id="mailAddr">hello@turn2law.in</span>
+      <button id="copyMail" type="button" aria-label="Copy email address">Copy</button>
+    </div>
   </div>
 </section>
 
 </main>
 
+<!-- 13 footer -->
 <footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a class="logo" href="index.html">
-          <img src="logo-band.png" alt="Turn2Law">
+        <a class="brand" href="#top">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 22V2M3 20L19 2M19 22V2M14.5 6.5L19 2" fill="none" stroke="#D8AB5B" stroke-width="2.4" stroke-linecap="square"/></svg>
+          <span class="word">TURN2<i>LAW</i></span>
         </a>
         <p>India's Legal OS. One platform for the founder who cannot afford a lawyer on retainer and the lawyer who cannot afford a bench.</p>
       </div>
       <div>
-        <h4>Products</h4>
+        <h4>Platform</h4>
         <a href="legal-services.html">Legal Services</a>
         <a href="docengine.html">Doc Engine</a>
         <a href="introspector.html">Introspector</a>
@@ -293,23 +644,69 @@
       </div>
       <div>
         <h4>Company</h4>
-        <a href="index.html#products">Platform</a>
-        <a href="resources.html">Resources</a>
-        <a href="index.html#contact">Contact</a>
-        <a href="privacy.html">Privacy Policy</a>
+        <a href="#mission-block">Founder mission</a>
+        <a href="#security">Security and privacy</a>
+        <a href="privacy.html">Privacy policy</a>
+        <a href="mailto:hello@turn2law.in">Contact</a>
       </div>
       <div>
         <h4>Get started</h4>
-        <a href="mailto:hello@turn2law.in">Talk to us</a>
-        <a href="signup.html">Create account</a>
+        <a href="mailto:hello@turn2law.in?subject=Consultation%20request">Book a consult</a>
         <a href="login.html">Log in</a>
+        <a href="signup.html">Create account</a>
       </div>
     </div>
-    <div class="statutory">Effivia Turn2Law Legal Pvt. Ltd. · CIN U63110DL2025PTC443434 · PAN AAICE6828R · TAN DELE19430F · turn2law.in · Chennai and New Delhi, India</div>
+    <div class="statutory">Effivia Turn2Law Legal Pvt. Ltd. · CIN U63110DL2025PTC443434 · PAN AAICE6828R · TAN DELE19430F · turn2law.in · Chennai and New Delhi, India<br>No GSTIN is displayed until GST registration is active.</div>
     <p class="disclaimer">Turn2Law is a technology platform, not a law firm, and does not provide legal representation. Information here is not legal advice. AI output is decision support and must be reviewed by qualified counsel before use in any filing. © 2026 Effivia Turn2Law Legal Pvt. Ltd. All rights reserved.</p>
   </div>
 </footer>
 
-<script src="assets.js"></script>
+<script>
+(function(){
+  /* sticky nav */
+  var nav=document.getElementById('nav');
+  function onScroll(){nav.classList.toggle('scrolled',window.scrollY>8)}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  /* mobile menu */
+  var burger=document.getElementById('burger'),mmenu=document.getElementById('mmenu');
+  burger.addEventListener('click',function(){mmenu.classList.toggle('open')});
+  mmenu.addEventListener('click',function(e){if(e.target.closest('a'))mmenu.classList.remove('open')});
+
+  /* founder mission anchor for footer */
+  var missionBlock=document.querySelector('.mission');
+  if(missionBlock)missionBlock.id='mission-block';
+
+  /* copy email */
+  var copyBtn=document.getElementById('copyMail');
+  copyBtn.addEventListener('click',function(){
+    var text='hello@turn2law.in';
+    function done(){copyBtn.textContent='Copied';setTimeout(function(){copyBtn.textContent='Copy'},2000)}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done).catch(function(){fallback()});
+    }else{fallback()}
+    function fallback(){
+      var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+      document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy');done()}catch(e){}
+      document.body.removeChild(ta);
+    }
+  });
+
+  /* scroll reveal, visible-resting with reduced-motion guard */
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els=document.querySelectorAll('.reveal');
+  if(reduce||!('IntersectionObserver' in window)){
+    els.forEach(function(el){el.classList.add('in')});
+    return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}
+    });
+  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(el){io.observe(el)});
+})();
+</script>
 </body>
 </html>
