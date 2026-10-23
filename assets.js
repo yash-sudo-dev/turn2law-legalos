@@ -1,37 +1,5 @@
-/* Turn2Law redesign · shared behaviour
-   Theme tri-state (Auto / Light / Dark), set before first paint by the
-   inline script in each page head. This file only wires interactions. */
+/* Turn2Law redesign · shared behaviour. Light theme only. */
 (function () {
-  var root = document.documentElement;
-
-  /* ---- theme ---- */
-  function applyTheme() {
-    var pref = localStorage.getItem("t2l-theme") || "auto";
-    var dark = pref === "dark" ||
-      (pref === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-    root.dataset.theme = dark ? "dark" : "light";
-    root.dataset.themePref = pref;
-  }
-  applyTheme();
-
-  /* follow the OS while in Auto */
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () {
-    if ((localStorage.getItem("t2l-theme") || "auto") === "auto") applyTheme();
-  });
-
-  document.querySelectorAll(".theme-btn").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var order = ["auto", "light", "dark"];
-      var cur = localStorage.getItem("t2l-theme") || "auto";
-      var next = order[(order.indexOf(cur) + 1) % order.length];
-      localStorage.setItem("t2l-theme", next);
-      applyTheme();
-      var lbl = btn.querySelector(".tlabel");
-      if (lbl) lbl.textContent = next.charAt(0).toUpperCase() + next.slice(1);
-      btn.setAttribute("aria-label", "Theme: " + next + ". Click to change.");
-    });
-  });
-
   /* ---- sticky nav shadow ---- */
   var nav = document.getElementById("nav");
   if (nav) {
