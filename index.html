@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Turn2Law · India's Legal OS</title>
+<meta name="description" content="One legal OS. Two audiences. Legal Services, DocEngine and Introspector: human expertise and AI capability are parts of the same product.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 22V2M3 20L19 2M19 22V2M14.5 6.5L19 2' fill='none' stroke='%23D8AB5B' stroke-width='2.4' stroke-linecap='square'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#D8AB5B;
+  --gold-text:#8A6A2F;
+  --ink:#111111;
+  --white:#FFFFFF;
+  --gray:#6F6F6F;
+  --line:#EAEAEA;
+  --navy:#0A1628;
+  --gold-soft:rgba(216,171,91,.12);
+  --font-head:'Poppins','Manrope',system-ui,sans-serif;
+  --font-body:'Inter','Manrope',system-ui,sans-serif;
+  --font-mono:'DM Mono','Manrope',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--ink);background:var(--white);line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--font-head);font-weight:600;letter-spacing:-.02em;line-height:1.15;color:var(--ink)}
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-text);margin-bottom:14px}
+.eyebrow::before{content:"";display:inline-block;width:20px;height:1px;background:var(--gold);vertical-align:middle;margin-right:10px}
+.section{padding:96px 0}
+.section.tight{padding:72px 0}
+.section-head{max-width:640px;margin-bottom:48px}
+.section-head h2{font-size:clamp(26px,3.4vw,36px);margin-bottom:14px}
+.section-head p{color:var(--gray);font-size:17px}
+.mono{font-family:var(--font-mono)}
+.gold-txt{color:var(--gold-text)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-head);font-weight:600;font-size:15px;padding:13px 26px;border-radius:4px;transition:.18s ease;cursor:pointer;border:1px solid transparent}
+.btn svg{width:16px;height:16px}
+.btn-gold{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.btn-gold:hover{background:#C9973F;border-color:#C9973F}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--white)}
+.btn-white{background:var(--white);color:var(--ink);border-color:var(--white)}
+.btn-white:hover{background:var(--gold);border-color:var(--gold)}
+
+/* announcement */
+.announce{background:var(--navy);color:#C9D2E0;font-family:var(--font-mono);font-size:12.5px;letter-spacing:.04em;text-align:center;padding:9px 16px}
+.announce b{color:var(--gold);font-weight:500}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-head);font-weight:700;font-size:19px;letter-spacing:-.01em}
+.logo svg{width:22px;height:22px}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:14.5px;font-weight:500}
+.nav-links a{color:var(--gray);transition:color .15s}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a.nav-prd{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text)}
+.nav-cta{display:flex;align-items:center;gap:18px}
+.nav-cta .login{font-size:14.5px;font-weight:500;color:var(--gray)}
+.nav-cta .btn{padding:10px 20px;font-size:14px}
+.burger{display:none;background:none;border:0;cursor:pointer;padding:8px}
+.burger svg{width:22px;height:22px;stroke:var(--ink)}
+.mobile-menu{display:none;flex-direction:column;gap:4px;padding:12px 24px 20px;border-top:1px solid var(--line);background:var(--white)}
+.mobile-menu a{padding:10px 0;font-size:15px;font-weight:500;color:var(--ink);border-bottom:1px solid var(--line)}
+.mobile-menu.open{display:flex}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:110px 0 90px}
+.hero-watermark{position:absolute;right:-30px;top:38%;transform:translateY(-50%);width:420px;height:420px;opacity:.05;pointer-events:none}
+.hero h1{font-size:clamp(34px,5.2vw,58px);max-width:720px;margin-bottom:22px}
+.hero .sub{font-size:19px;color:var(--gray);max-width:600px;margin-bottom:36px}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:44px}
+.trust-chips{display:flex;gap:12px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12px;letter-spacing:.05em;color:var(--gray);border:1px solid var(--line);border-radius:99px;padding:7px 16px}
+.chip svg{width:13px;height:13px;stroke:var(--gold-text)}
+
+/* client strip */
+.clients{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:26px 0;background:#FCFBF8}
+.clients .label{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);text-align:center;margin-bottom:14px}
+.clients .row{display:flex;justify-content:center;gap:14px 40px;flex-wrap:wrap;font-family:var(--font-mono);font-size:14px;letter-spacing:.06em;color:var(--ink)}
+
+/* problem cards */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:6px;padding:26px 24px}
+.card h3{font-size:17px;margin-bottom:10px}
+.card p{font-size:14.5px;color:var(--gray)}
+.card .who{display:inline-block;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-top:14px}
+
+/* pillars */
+.pillar{border:1px solid var(--line);border-radius:8px;padding:32px 28px;position:relative;background:var(--white);transition:.2s}
+.pillar:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 14px 34px rgba(17,17,17,.06)}
+.pillar .num{font-family:var(--font-mono);font-size:13px;color:var(--gold-text);letter-spacing:.1em;margin-bottom:16px}
+.pillar h3{font-size:21px;margin-bottom:4px}
+.pillar .tagline{font-family:var(--font-mono);font-size:12.5px;color:var(--gold-text);margin-bottom:12px}
+.pillar .buyer{display:inline-block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line);border-radius:99px;padding:4px 11px;color:var(--gray);margin-bottom:16px}
+.pillar p{font-size:14.5px;color:var(--gray);margin-bottom:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-family:var(--font-mono);font-size:11.5px;background:#F7F4EC;color:var(--gold-text);border-radius:3px;padding:5px 10px}
+.rule-note{margin-top:26px;border-left:3px solid var(--gold);background:#FCFBF8;padding:16px 22px;font-size:14px;color:var(--gray);border-radius:0 6px 6px 0}
+.rule-note b{color:var(--ink)}
+
+/* capabilities */
+.grid-caps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.cap{background:var(--white);padding:26px 22px;transition:background .15s}
+.cap:hover{background:#FCFAF4}
+.cap svg{width:22px;height:22px;stroke:var(--gold-text);margin-bottom:14px}
+.cap h3{font-size:15px;margin-bottom:6px}
+.cap p{font-size:13px;color:var(--gray);line-height:1.55}
+
+/* audiences */
+.aud{border-top:3px solid var(--line);padding:22px 4px 0;position:relative}
+.aud.hot{border-top-color:var(--gold)}
+.aud .pri{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px}
+.aud h3{font-size:16px;margin-bottom:8px}
+.aud p{font-size:13.5px;color:var(--gray)}
+
+/* compare table */
+.cmp{width:100%;border-collapse:collapse;font-size:14.5px}
+.cmp th{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;text-align:left;padding:14px 18px;border-bottom:2px solid var(--ink)}
+.cmp th.t2l{color:var(--gold-text)}
+.cmp td{padding:16px 18px;border-bottom:1px solid var(--line);color:var(--gray);vertical-align:top}
+.cmp td:first-child{font-weight:600;color:var(--ink);font-family:var(--font-head);font-size:14px}
+.cmp td.t2l{color:var(--ink)}
+.cmp-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;padding:8px}
+
+/* roadmap */
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.phase{position:relative;padding:26px 22px;border:1px solid var(--line);border-radius:8px;background:var(--white)}
+.phase .ph{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--gold-text);text-transform:uppercase;margin-bottom:10px}
+.phase h3{font-size:17px;margin-bottom:8px}
+.phase p{font-size:13.5px;color:var(--gray);margin-bottom:12px}
+.phase .exit{font-size:12.5px;color:var(--ink);border-top:1px dashed var(--line);padding-top:10px}
+.phase .exit b{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;color:var(--gold-text);text-transform:uppercase;display:block;margin-bottom:4px}
+.t3090{margin-top:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.t3090 .card h3{font-family:var(--font-mono);font-weight:500;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+
+/* pricing */
+.price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.price{border:1px solid var(--line);border-radius:8px;padding:28px 24px;display:flex;flex-direction:column;background:var(--white)}
+.price.feature{border-color:var(--gold);position:relative}
+.price.feature::before{content:"Anchor offer";position:absolute;top:-11px;left:20px;background:var(--gold);color:var(--ink);font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:3px}
+.price h3{font-size:17px;margin-bottom:6px}
+.price .model{font-size:13px;color:var(--gray);margin-bottom:16px;min-height:40px}
+.price .amt{font-family:var(--font-head);font-weight:700;font-size:26px;margin-bottom:4px}
+.price .amt small{font-size:13px;font-weight:500;color:var(--gray)}
+.price ul{list-style:none;margin:16px 0 22px;flex:1}
+.price li{font-size:13.5px;color:var(--gray);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:flex-start}
+.price li svg{width:14px;height:14px;stroke:var(--gold-text);flex-shrink:0;margin-top:4px}
+.price-note{margin-top:22px;font-size:13px;color:var(--gray);font-family:var(--font-mono)}
+
+/* campus band */
+.band{background:var(--navy);color:#D7DEE9;padding:88px 0}
+.band .eyebrow{color:var(--gold)}
+.band .eyebrow::before{background:var(--gold)}
+.band h2{color:var(--white);font-size:clamp(26px,3.4vw,36px);max-width:620px;margin-bottom:16px}
+.band p{color:#9AA7BA;max-width:560px;margin-bottom:32px;font-size:16px}
+
+/* closing CTA */
+.cta-band{text-align:center;padding:110px 0;background:linear-gradient(180deg,#FFFDF8 0%,#FBF6EA 100%)}
+.cta-band h2{font-size:clamp(30px,4.4vw,46px);max-width:680px;margin:0 auto 16px}
+.cta-band p{color:var(--gray);font-size:17px;margin-bottom:36px}
+.cta-band .hero-ctas{justify-content:center;margin-bottom:24px}
+.cta-band .mail{font-family:var(--font-mono);font-size:14px;color:var(--gold-text)}
+
+/* footer */
+footer{background:var(--navy);color:#9AA7BA;padding:72px 0 40px;font-size:14px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:56px}
+.foot-grid h4{color:var(--white);font-size:13px;font-family:var(--font-mono);font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.foot-grid a{display:block;padding:5px 0;color:#9AA7BA;transition:color .15s}
+.foot-grid a:hover{color:var(--gold)}
+.foot-brand p{max-width:300px;font-size:13.5px;line-height:1.7;margin-top:16px}
+.statutory{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.03em;color:#6B7891;line-height:2}
+.disclaimer{font-size:12px;color:#6B7891;margin-top:14px;max-width:840px;line-height:1.7}
+
+/* ============ PRD VIEW ============ */
+body.view-prd .site-view{display:none}
+body:not(.view-prd) .prd-view{display:none}
+.prd-view{background:#FCFCFA;min-height:100vh}
+.prd-top{background:var(--navy);color:#C9D2E0;padding:18px 0;font-size:13.5px}
+.prd-top .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.prd-top a{color:var(--gold)}
+.prd-layout{display:grid;grid-template-columns:250px 1fr;gap:48px;max-width:1220px;margin:0 auto;padding:56px 24px 100px}
+.prd-side{position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow-y:auto;padding-right:8px}
+.prd-side .side-title{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);margin-bottom:14px}
+.prd-side a{display:block;font-size:13px;color:var(--gray);padding:5px 0 5px 12px;border-left:2px solid var(--line);transition:.15s}
+.prd-side a:hover{color:var(--ink);border-left-color:var(--gold)}
+.prd-side a.active{color:var(--gold-text);border-left-color:var(--gold)}
+.prd-doc h1{font-size:clamp(30px,4vw,42px);margin:6px 0 18px}
+.prd-meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+.prd-meta span{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.05em;border:1px solid var(--line);background:var(--white);border-radius:99px;padding:6px 14px;color:var(--gray)}
+.prd-meta span b{color:var(--gold-text);font-weight:500}
+.prd-howto{background:#FCFBF8;border:1px solid var(--line);border-radius:8px;padding:20px 24px;font-size:14px;color:var(--gray);margin-bottom:56px}
+.prd-sec{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:36px 40px;margin-bottom:28px;scroll-margin-top:24px}
+.prd-sec .sec-no{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-text);margin-bottom:10px}
+.prd-sec h2{font-size:24px;margin-bottom:18px}
+.prd-sec h3{font-size:16.5px;margin:26px 0 10px}
+.prd-sec p{font-size:15px;color:#3A3A3A;margin-bottom:14px;max-width:820px}
+.prd-sec ul{margin:0 0 16px 20px;max-width:800px}
+.prd-sec li{font-size:14.5px;color:#3A3A3A;margin-bottom:6px}
+.aside{border-left:3px solid var(--gold);background:#FCFBF8;padding:16px 20px;border-radius:0 6px 6px 0;margin:18px 0;font-size:14px;color:var(--gray)}
+.aside b{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-text);margin-bottom:6px}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin:18px 0}
+.tbl th{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:11px 14px;background:#F7F5F0;color:var(--ink);border-bottom:2px solid var(--line)}
+.tbl td{padding:12px 14px;border-bottom:1px solid var(--line);color:#3A3A3A;vertical-align:top}
+.tbl td:first-child{font-weight:600;color:var(--ink)}
+.tbl tr:last-child td{border-bottom:0}
+.tbl-scroll{overflow-x:auto}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* responsive */
+@media(max-width:960px){
+  .grid-3{grid-template-columns:1fr 1fr}
+  .grid-caps{grid-template-columns:1fr 1fr}
+  .phases{grid-template-columns:1fr 1fr}
+  .price-grid{grid-template-columns:1fr 1fr}
+  .t3090{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .prd-layout{grid-template-columns:1fr}
+  .prd-side{position:static;max-height:none;display:flex;flex-wrap:wrap;gap:6px}
+  .prd-side .side-title{width:100%}
+  .prd-side a{border:1px solid var(--line);border-radius:99px;padding:4px 12px;background:var(--white)}
+}
+@media(max-width:680px){
+  .nav-links,.nav-cta{display:none}
+  .burger{display:block}
+  .grid-3{grid-template-columns:1fr}
+  .grid-caps{grid-template-columns:1fr}
+  .phases{grid-template-columns:1fr}
+  .price-grid{grid-template-columns:1fr}
+  .section{padding:64px 0}
+  .hero{padding:70px 0 60px}
+  .hero-watermark{width:260px;height:260px;right:-90px;top:30%}
+  .prd-sec{padding:26px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= MARKETING VIEW ================= -->
+<div class="site-view" id="top">
+
+<div class="announce">Phase 1 first cohort: <b>onboarding now</b> · Legal Services and DocEngine, built for founders</div>
+
+<nav class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="#top" aria-label="Turn2Law home">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 22V2M3 20L19 2M19 22V2M14.5 6.5L19 2" fill="none" stroke="#D8AB5B" stroke-width="2.4" stroke-linecap="square"/></svg>
+      Turn2Law
+    </a>
+    <div class="nav-links">
+      <a href="#pillars">Platform</a>
+      <a href="#services">Legal Services</a>
+      <a href="#docengine">DocEngine</a>
+      <a href="#introspector">Introspector</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#prd" class="nav-prd">Master PRD</a>
+    </div>
+    <div class="nav-cta">
+      <a class="login" href="#contact">Log in</a>
+      <a class="btn btn-gold" href="#contact">Book a consult</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mmenu">
+    <a href="#pillars">Platform</a>
+    <a href="#services">Legal Services</a>
+    <a href="#docengine">DocEngine</a>
+    <a href="#introspector">Introspector</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#prd">Master PRD</a>
+    <a href="#contact">Book a consult</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <svg class="hero-watermark" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 22V2M3 20L19 2M19 22V2M14.5 6.5L19 2" fill="none" stroke="#111111" stroke-width="1.1" stroke-linecap="square"/></svg>
+  <div class="wrap">
+    <div class="eyebrow">India's Legal OS</div>
+    <h1>Legal infrastructure for founders and lawyers.</h1>
+    <p class="sub">One legal OS. Two audiences. Human expertise and AI capability are parts of the same product, organised into three pillars: Legal Services, DocEngine, and Introspector.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-gold" href="#contact">Book a consultation
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="#pillars">Explore the pillars</a>
+    </div>
+    <div class="trust-chips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>MCA registered company</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>In-house lawyers, CA and CS</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>5+ startups under active compliance</span>
+    </div>
+  </div>
+</header>
+
+<!-- CLIENT STRIP -->
+<div class="clients">
+  <div class="wrap">
+    <div class="label">Registered and under active compliance</div>
+    <div class="row"><span>ICEBRKR</span><span>Sentinel Layer</span><span>Serene Neurotech</span><span>Motioncomm</span><span>Withera Labs</span></div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="section" id="problem">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">The problem</div>
+      <h2>Legal help is built for people who already have it.</h2>
+      <p>Legal work is expensive to buy, slow to deliver, and hard to trust. The same root cause shows up on both sides of the table.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card reveal"><h3>Compliance never stops</h3><p>ROC filings, GST returns, resolutions, and registers follow incorporation every month. Missing one has consequences.</p><span class="who">Founders</span></div>
+      <div class="card reveal"><h3>Counsel is unaffordable early</h3><p>Exactly when the NDA, founders' agreement, and first-hire decisions are made, a lawyer on retainer is out of reach.</p><span class="who">Founders</span></div>
+      <div class="card reveal"><h3>Good help is hard to find</h3><p>Trustworthy, specialised help is hard to discover. Founders rely on referrals and luck.</p><span class="who">Founders</span></div>
+      <div class="card reveal"><h3>Law is written in jargon</h3><p>One-sided clauses go unnoticed until they cause damage. Nobody explains what you are signing.</p><span class="who">Both sides</span></div>
+      <div class="card reveal"><h3>Lawyers work without a bench</h3><p>Research and case organisation consume argument time. There is no paralegal bench behind a solo advocate.</p><span class="who">Lawyers</span></div>
+      <div class="card reveal"><h3>Everything moves too slowly</h3><p>Registrations stall, documents take weeks, hearings sit months apart.</p><span class="who">Both sides</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="section tight" id="pillars" style="background:#FCFBF8">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">The platform</div>
+      <h2>Three pillars. One system.</h2>
+      <p>Everything Turn2Law builds lives inside one of three pillars. Together they cover a legal need from the first document a founder drafts to the last argument a lawyer makes in court.</p>
+    </div>
+    <div class="grid-3">
+      <div class="pillar reveal" id="services">
+        <div class="num">PILLAR 01</div>
+        <h3>Legal Services</h3>
+        <div class="tagline">Done right, not just fast.</div>
+        <span class="buyer">For founders and businesses</span>
+        <p>Human-delivered legal, compliance, and IP work through in-house lawyers, a CA, and a CS. From incorporation to trademark to the Virtual GC retainer.</p>
+        <div class="chips"><span>Incorporation</span><span>Trademark and IP</span><span>GST and registrations</span><span>ROC compliance</span><span>ESOP and cap table</span><span>Virtual GC</span></div>
+      </div>
+      <div class="pillar reveal" id="docengine">
+        <div class="num">PILLAR 02</div>
+        <h3>DocEngine</h3>
+        <div class="tagline">Prompt in. Drafted document out.</div>
+        <span class="buyer">For founders and MSMEs</span>
+        <p>Plain-language input becomes a well-drafted, India-specific legal document in minutes, with the option to bring in a Turn2Law lawyer when stakes rise.</p>
+        <div class="chips"><span>Prompt-to-document</span><span>Guided Q&amp;A</span><span>Risk flagging</span><span>13+ templates</span><span>E-signature</span><span>PDF and DOCX</span></div>
+      </div>
+      <div class="pillar reveal" id="introspector">
+        <div class="num">PILLAR 03</div>
+        <h3>Introspector</h3>
+        <div class="tagline">The lawyer's missing bench.</div>
+        <span class="buyer">For practising lawyers · Pilot</span>
+        <p>An AI research and strategy agent for litigators: precedent search, statute mapping across IPC and BNS, argument frameworks, and a privileged case vault.</p>
+        <div class="chips"><span>Precedent search</span><span>Statute mapping</span><span>Argument frameworks</span><span>Case timeline</span><span>Privileged vault</span><span>Collaboration</span></div>
+      </div>
+    </div>
+    <div class="rule-note reveal"><b>Responsible use, on every surface.</b> Research and analytics support a lawyer's judgment. They never replace it. Section recommendations and outcome patterns must be reviewed by qualified counsel before use in any filing or court.</div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="section" id="capabilities">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Core capabilities</div>
+      <h2>What the platform does.</h2>
+      <p>Twelve capabilities across the three pillars, on one shared system.</p>
+    </div>
+    <div class="grid-caps reveal">
+      <div class="cap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M3 21h18M5 21V5l7-2v18M19 21V10l-7-2"/><path d="M8 8h1M8 12h1M8 16h1"/></svg><h3>Incorporation and registration</h3><p>Pvt Ltd, OPC, LLP, Section 8, and entity conversions, handled end to end.</p></div>
+      <div class="cap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M12 8v5M12 16h.01"/></svg><h3>Trademark and IP protection</h3><p>Search, filing, opposition, renewals, copyright, and patent assistance.</p></div>
+      <div class="cap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 15h8M8 11h2"/></svg><h3>GST and tax registrations</h3><p>GST, MSME and Udyam, IEC, FSSAI, Shops and Establishment, Professional Tax.</p></div>
+      <div class="cap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M9 2h6M12 2v5M19 10a7 7 0 1 0-14 0c0 4 3 6 3 8h8c0-2 3-4 3-8z"/><path d="M9 21h6"/></svg><h3>ROC compliance</h3><p>Annual filings, board resolutions, registers, DIN, auditor appointment, AGM.</p></div>
+      <div class="cap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 9h18M8 14h3M8 17h6"/></svg><h3>Compliance calendar</h3><p>Deadlines, recurring obligations, reminders, escalation, and audit trails.</p></div>
+      <div class="cap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M4 20h16M6 16l10.5-10.5a2.1 2.1 0 0 1 3 3L9 19l-5 1z"/></svg><h3>Prompt-to-document</h3><p>Describe the need in plain language. Get an India-specific document in minutes.</p></div>
+      <div class="cap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M21 11.5a8.5 8.5 0 1 1-4-7.2"/><path d="M21 4l-8.5 8.5"/><circle cx="12" cy="12" r="1"/></svg><h3>Guided Q&amp;A</h3><p>Founders unfamiliar with legal terms are guided question by question.</p></div>
+      <div class="cap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M12 9v4M12 15h.01"/></svg><h3>AI risk flagging</h3><p>One-sided clauses flagged, with a plain-language explainer beside every clause.</p></div>
+      <div class="cap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13l2 2 4-4"/></svg><h3>E-signature and export</h3><p>Multi-party review, version history, PDF and DOCX export.</p></div>
+      <div class="cap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg><h3>Precedent search</h3><p>Search across judgments with source location, citations, and freshness.</p></div>
+      <div class="cap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M9 2h6M12 2v5M19 10a7 7 0 1 0-14 0c0 4 3 6 3 8h8c0-2 3-4 3-8z"/><path d="M9 18h6M10 22h4"/></svg><h3>Statute mapping</h3><p>Section recommendations across IPC, BNS, CrPC, BNSS, and the Evidence Act.</p></div>
+      <div class="cap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg><h3>Privileged case vault</h3><p>Confidential document storage with per-matter permissions and audit logs.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCES -->
+<section class="section tight" id="audiences" style="background:#FCFBF8">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Who we serve</div>
+      <h2>Built for two sides of the same table.</h2>
+    </div>
+    <div class="grid-3" style="grid-template-columns:repeat(3,1fr)">
+      <div class="aud hot reveal"><div class="pri">Primary</div><h3>First-time founders</h3><p>Leaving a job to start a venture, setting up the legal backbone from day one.</p></div>
+      <div class="aud hot reveal"><div class="pri">Primary</div><h3>Startups and small businesses</h3><p>Incorporated companies managing compliance, contracts, hiring, and fundraising.</p></div>
+      <div class="aud reveal"><div class="pri">Pilot</div><h3>Practising lawyers</h3><p>Independent advocates carrying research and case prep without a support bench.</p></div>
+      <div class="aud reveal"><div class="pri">Later</div><h3>Chambers and legal teams</h3><p>Senior counsel, associates, and paralegals on shared case files.</p></div>
+      <div class="aud reveal"><div class="pri">Later</div><h3>Non-profits and Section 8</h3><p>Mission-driven organisations needing registration and ongoing compliance.</p></div>
+      <div class="aud reveal"><div class="pri">Secondary</div><h3>Ventures raising capital</h3><p>Navigating term sheets, ESOPs, cap tables, FEMA and RBI requirements.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="section" id="why">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Why Turn2Law</div>
+      <h2>Traditional legal services, rebuilt.</h2>
+    </div>
+    <div class="cmp-wrap reveal">
+      <table class="cmp">
+        <thead><tr><th></th><th>Traditional legal services</th><th class="t2l">Turn2Law</th></tr></thead>
+        <tbody>
+          <tr><td>Access</td><td>Referral driven, office hours, city centric</td><td class="t2l">One platform, available wherever the founder or lawyer is</td></tr>
+          <tr><td>Cost</td><td>High and opaque</td><td class="t2l">Transparent, productised pricing, anchored at ₹18,000/year</td></tr>
+          <tr><td>Speed</td><td>Documents in weeks, registrations stall</td><td class="t2l">Documents in minutes, registrations in days</td></tr>
+          <tr><td>Language</td><td>Jargon by default</td><td class="t2l">Plain language beside every clause</td></tr>
+          <tr><td>Support</td><td>No bench behind the professional</td><td class="t2l">Human professionals plus a purpose-built AI bench</td></tr>
+          <tr><td>AI</td><td>Seen as a threat</td><td class="t2l">Used as a tool. Judgment stays with qualified counsel</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="section tight" id="roadmap" style="background:#FCFBF8">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Roadmap</div>
+      <h2>Sequenced, not simultaneous.</h2>
+      <p>The three pillars do not launch at once. Each phase earns the next.</p>
+    </div>
+    <div class="phases">
+      <div class="phase reveal"><div class="ph">Phase 1 · Now</div><h3>Ship and harden</h3><p>Legal Services and DocEngine behind a secure multi-tenant foundation and the public site.</p><div class="exit"><b>Exit criteria</b>First cohort live. P0 features pass security and acceptance tests.</div></div>
+      <div class="phase reveal"><div class="ph">Phase 2 · Next</div><h3>Introspector pilot</h3><p>Closed pilot with practising lawyers, starting with Adv. Pranav's network.</p><div class="exit"><b>Exit criteria</b>Validated research accuracy and section recommendations.</div></div>
+      <div class="phase reveal"><div class="ph">Phase 3 · Unify</div><h3>One Legal OS</h3><p>All three pillars on shared account infrastructure.</p><div class="exit"><b>Exit criteria</b>Founder compliance data and lawyer case data on one system.</div></div>
+      <div class="phase reveal"><div class="ph">Phase 4 · Beyond</div><h3>Scale the system</h3><p>Deeper automation across compliance and case workflows, nationwide scale.</p><div class="exit"><b>Exit criteria</b>Repeatable, monitored, cost-controlled growth.</div></div>
+    </div>
+    <div class="t3090">
+      <div class="card reveal"><h3>First 30 days</h3><p>Product discovery, architecture and threat model sign-off, design-system build, marketing site live, auth and org model in staging.</p></div>
+      <div class="card reveal"><h3>By day 60</h3><p>Client dashboard, service intake and engagement, compliance calendar, document storage with signed URLs.</p></div>
+      <div class="card reveal"><h3>By day 90</h3><p>DocEngine drafting with the core template set, invoicing, first external cohort onboarded behind full P0 security controls.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Pricing</div>
+      <h2>Honest pricing, stated up front.</h2>
+      <p>Prices are hypotheses to validate. The only committed figure today is the annual ROC compliance package.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price feature reveal">
+        <h3>Legal Services</h3>
+        <div class="model">Fixed scope plus annual retainer</div>
+        <div class="amt">₹18,000 <small>/ year</small></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Annual ROC compliance package</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Incorporation, trademark, GST, ESOP</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Virtual GC retainer</li>
+        </ul>
+        <a class="btn btn-gold" href="#contact">Book a consult</a>
+      </div>
+      <div class="price reveal">
+        <h3>DocEngine</h3>
+        <div class="model">Per document and subscription tiers</div>
+        <div class="amt">Per engagement <small>first cohort</small></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>13+ India-specific templates</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Risk flagging and clause explainers</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>E-signature, PDF and DOCX</li>
+        </ul>
+        <a class="btn btn-ghost" href="#contact">Join the cohort</a>
+      </div>
+      <div class="price reveal">
+        <h3>Introspector</h3>
+        <div class="model">Subscription, after the pilot</div>
+        <div class="amt">Pilot <small>not yet priced</small></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Closed pilot with practising lawyers</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Precedent search and statute mapping</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Privileged vault, case timelines</li>
+        </ul>
+        <a class="btn btn-ghost" href="#contact">Join the pilot</a>
+      </div>
+      <div class="price reveal">
+        <h3>Enterprise</h3>
+        <div class="model">Multi-entity, custom</div>
+        <div class="amt">Quote</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Multi-entity compliance</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Public API and integrations</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>Campus Partner infrastructure</li>
+        </ul>
+        <a class="btn btn-ghost" href="#contact">Talk to us</a>
+      </div>
+    </div>
+    <div class="price-note">Final pricing is confirmed in writing before any work begins. No GSTIN is printed until GST registration is active.</div>
+  </div>
+</section>
+
+<!-- CAMPUS BAND -->
+<section class="band" id="campus">
+  <div class="wrap">
+    <div class="eyebrow">Campus Partner Program</div>
+    <h2>Built on campus. Partnering with campuses.</h2>
+    <p>Turn2Law was incubated at SRM DEI and the Bootstrappers Research Council. The Campus Partner Program brings the Legal OS to college ecosystems through MOUs: legal literacy, internships, and startup incorporation support.</p>
+    <a class="btn btn-white" href="#contact">Partner with us
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- CLOSING CTA -->
+<section class="cta-band" id="contact">
+  <div class="wrap">
+    <div class="eyebrow" style="justify-content:center">Get started</div>
+    <h2>Justice should never depend on privilege.</h2>
+    <p>Book a consultation, request a demo, or talk to the founder's office.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-gold" href="mailto:hello@turn2law.in?subject=Consultation%20request">Book a consultation
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="mailto:hello@turn2law.in?subject=Demo%20request">Request a demo</a>
+    </div>
+    <div class="mail">hello@turn2law.in · turn2law.in</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="#top" style="color:#fff">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 22V2M3 20L19 2M19 22V2M14.5 6.5L19 2" fill="none" stroke="#D8AB5B" stroke-width="2.4" stroke-linecap="square"/></svg>
+          Turn2Law
+        </a>
+        <p>India's Legal OS. One platform, two audiences: founders and lawyers. Effivia Turn2Law Legal Pvt. Ltd., Chennai and New Delhi, India.</p>
+      </div>
+      <div>
+        <h4>Platform</h4>
+        <a href="#services">Legal Services</a>
+        <a href="#docengine">DocEngine</a>
+        <a href="#introspector">Introspector</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="#why">Why Turn2Law</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#campus">Campus Partner Program</a>
+        <a href="#prd">Master PRD</a>
+        <a href="mailto:hello@turn2law.in">Contact</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="#contact">Privacy</a>
+        <a href="#contact">Terms</a>
+        <a href="#contact">Disclaimers</a>
+      </div>
+    </div>
+    <div class="statutory">Effivia Turn2Law Legal Pvt. Ltd. · CIN U63110DL2025PTC443434 · PAN AAICE6828R · TAN DELE19430F · turn2law.in</div>
+    <p class="disclaimer">Turn2Law is a technology platform, not a law firm. AI output is decision support and must be reviewed by qualified counsel. Research and analytics support a lawyer's judgment. They never replace it.</p>
+  </div>
+</footer>
+
+</div><!-- /site-view -->
+
+<!-- ================= PRD VIEW ================= -->
+<div class="prd-view" id="prd-doc">
+  <div class="prd-top">
+    <div class="wrap">
+      <a class="logo" href="#top" onclick="leavePrd(event)" style="color:#fff;font-size:16px">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 22V2M3 20L19 2M19 22V2M14.5 6.5L19 2" fill="none" stroke="#D8AB5B" stroke-width="2.4" stroke-linecap="square"/></svg>
+        Turn2Law
+      </a>
+      <span class="mono" style="font-size:12px;letter-spacing:.08em">MASTER PRD · V1.0 · 24 OCTOBER 2026 · CONFIDENTIAL</span>
+      <a href="#top" onclick="leavePrd(event)">← Back to site</a>
+    </div>
+  </div>
+  <div class="prd-layout">
+    <nav class="prd-side" id="prd-side">
+      <div class="side-title">Contents</div>
+      <a href="#prd-s1">01 Executive summary</a>
+      <a href="#prd-s2">02 Vision and positioning</a>
+      <a href="#prd-s3">03 Personas</a>
+      <a href="#prd-s4">04 Three pillars</a>
+      <a href="#prd-s5">05 Feature inventory</a>
+      <a href="#prd-s6">06 Marketing site</a>
+      <a href="#prd-s7">07 Identity and roles</a>
+      <a href="#prd-s8">08 Client dashboard</a>
+      <a href="#prd-s9">09 DocEngine</a>
+      <a href="#prd-s10">10 Introspector</a>
+      <a href="#prd-s11">11 Legal Services ops</a>
+      <a href="#prd-s12">12 Legal Library</a>
+      <a href="#prd-s13">13 Compliance calendar</a>
+      <a href="#prd-s14">14 Design system</a>
+      <a href="#prd-s15">15 Architecture</a>
+      <a href="#prd-s16">16 Data model</a>
+      <a href="#prd-s17">17 API conventions</a>
+      <a href="#prd-s18">18 Security</a>
+      <a href="#prd-s19">19 Privacy, regulatory</a>
+      <a href="#prd-s20">20 AI safety, evals</a>
+      <a href="#prd-s21">21 Roadmap 30/60/90</a>
+      <a href="#prd-s22">22 Team</a>
+      <a href="#prd-s23">23 Pricing</a>
+      <a href="#prd-s24">24 Analytics, KPIs</a>
+      <a href="#prd-s25">25 Risk register</a>
+      <a href="#prd-s26">26 Open questions</a>
+      <a href="#prd-s27">27 Launch checklist</a>
+    </nav>
+    <main class="prd-doc">
+      <div class="eyebrow">Product requirements document</div>
+      <h1>Turn2Law Master PRD</h1>
+      <div class="prd-meta">
+        <span><b>Version</b> 1.0</span>
+        <span><b>Date</b> 24 October 2026</span>
+        <span><b>Owner</b> Founder's Office</span>
+        <span><b>Status</b> Draft for review</span>
+      </div>
+      <p style="color:var(--gray);font-size:15px;max-width:760px">India's Legal OS. One platform, two audiences: founders and lawyers. This document specifies the product, its design system, architecture, security posture, and the order in which to build it.</p>
+      <p class="mono" style="font-size:12px;color:var(--gray)">Effivia Turn2Law Legal Pvt. Ltd. · CIN U63110DL2025PTC443434 · PAN AAICE6828R · TAN DELE19430F · turn2law.in</p>
+      <div class="prd-howto"><b style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-text)">How to read this</b><br>Facts drawn from the Turn2Law Brand Overview v1.0 and operating records are stated plainly. Anything not yet decided or requiring legal, security, or technical validation is marked <i>Assumption</i> or <i>Validate</i>. This PRD is a working specification, not legal advice. The regulatory section must be reviewed by qualified Indian counsel before launch.</div>
+
+      <section class="prd-sec" id="prd-s1">
+        <div class="sec-no">Section 01</div>
+        <h2>Executive summary</h2>
+        <p>Turn2Law is a legal operating system for the two people the legal industry serves worst: the founder who cannot afford a lawyer on retainer, and the lawyer who cannot afford a bench of paralegals.</p>
+        <p>It is not a marketplace layered over the old system. It is one platform where human expertise and AI capability are parts of the same product, organised into three pillars. The discipline is simple: if a feature does not fit a pillar, it does not ship. A founder's compliance data and a lawyer's case data run on shared infrastructure, so every part of the platform makes the others stronger.</p>
+        <h3>The three pillars</h3>
+        <p>Pillar 01 Legal Services is human-delivered legal, compliance, and IP work, already anchored by a live client base. Pillar 02 DocEngine turns plain-language prompts into India-specific legal documents in minutes. Pillar 03 Introspector is an AI research and strategy bench for practising lawyers. Pillars 01 and 02 sell to founders. Pillar 03 sells to litigators, at a higher trust bar.</p>
+        <h3>Where we are</h3>
+        <p>MCA registered as Effivia Turn2Law Legal Pvt. Ltd., incubated at SRM DEI and the Bootstrappers Research Council, with an in-house team of lawyers, a CA, and a CS, and 5+ startups already registered and under active compliance: ICEBRKR, Sentinel Layer, Serene Neurotech, Motioncomm, Withera Labs.</p>
+        <h3>What to build first</h3>
+        <p>Phase 1 hardens Legal Services and DocEngine for a first cohort behind a secure, multi-tenant foundation and a public marketing site. Introspector enters a closed pilot in Phase 2. The three pillars unify on one account system in Phase 3.</p>
+        <div class="aside"><b>Primary success question</b>If this document went to a capable product and engineering team today, they should know exactly what Turn2Law needs to become, how it should look and behave, how it should be built and secured, and in what order to deliver it.</div>
+      </section>
+
+      <section class="prd-sec" id="prd-s2">
+        <div class="sec-no">Section 02</div>
+        <h2>Product vision and positioning</h2>
+        <h3>Mission</h3>
+        <p>Remove legal friction wherever it slows people down, so that getting legal help is never harder than needing it.</p>
+        <h3>Vision</h3>
+        <p>A future where every founder, business, and lawyer in India works on one intelligent legal system. Access to law should not depend on privilege, connections, or the size of a legal budget.</p>
+        <h3>The problem</h3>
+        <p>Legal help is built for people who already have it. Legal work is expensive to buy, slow to deliver, and hard to trust. The same root cause shows up on both sides of the table.</p>
+        <div class="tbl-scroll"><table class="tbl">
+          <thead><tr><th>#</th><th>Problem</th><th>Who feels it</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Compliance never stops: ROC filings, GST returns, resolutions, and registers follow incorporation every month, and missing one has consequences.</td><td>Founders</td></tr>
+            <tr><td>2</td><td>Counsel is unaffordable early, exactly when the NDA, founders' agreement, and first-hire decisions are made.</td><td>Founders</td></tr>
+            <tr><td>3</td><td>Trustworthy, specialised help is hard to discover. Founders rely on referrals and luck.</td><td>Founders</td></tr>
+            <tr><td>4</td><td>Law is written in jargon. One-sided clauses go unnoticed until they cause damage.</td><td>Both</td></tr>
+            <tr><td>5</td><td>Lawyers work without a bench. Research and case organisation consume argument time.</td><td>Lawyers</td></tr>
+            <tr><td>6</td><td>Everything moves too slowly: registrations stall, documents take weeks, hearings sit months apart.</td><td>Both</td></tr>
+          </tbody>
+        </table></div>
+        <h3>Positioning</h3>
+        <p>One operating system where human expertise and AI capability are parts of the same product. Approved lines: "India's Legal OS", "One legal OS. Two audiences.", "Legal infrastructure for Indian startups.", "Traditional legal services, rebuilt."</p>
+        <h3>Differentiation</h3>
+        <p>The wedge is the combination of human delivery plus purpose-built AI on one system, and the lawyer-facing Pillar 03, which the incorporation-and-filing incumbents do not offer. Named market context: Vakilsearch and Zolvit, RegisterKaro, IndiaFilings (incorporation and compliance), SpotDraft (contract lifecycle), LegalKart (lawyer consultation).</p>
+        <h3>Revenue model</h3>
+        <p>Per-document and subscription tiers for DocEngine. Fixed-scope and retainer fees for Legal Services, with annual ROC compliance anchored at ₹18,000 per year. A subscription for Introspector after the pilot. <i>Validate: exact plan boundaries and price points are hypotheses, not committed figures.</i></p>
+      </section>
+
+      <section class="prd-sec" id="prd-s3">
+        <div class="sec-no">Section 03</div>
+        <h2>Personas and who we serve</h2>
+        <p>Built for two sides of the same table. Prioritise the first two personas at launch. The rest are served by the same system as it matures.</p>
+        <div class="tbl-scroll"><table class="tbl">
+          <thead><tr><th>Persona</th><th>Who they are</th><th>Pillar</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr><td>First-time founder</td><td>Leaving a job to start a venture, setting up the legal backbone from day one.</td><td>01 + 02</td><td>Primary</td></tr>
+            <tr><td>Startup / small business</td><td>Incorporated company managing compliance, contracts, hiring, and fundraising.</td><td>01 + 02</td><td>Primary</td></tr>
+            <tr><td>Practising lawyer</td><td>Independent advocate carrying research and case prep without a support bench.</td><td>03</td><td>Secondary (pilot)</td></tr>
+            <tr><td>Chambers / legal team</td><td>Senior counsel, associates, and paralegals on shared case files.</td><td>03</td><td>Later</td></tr>
+            <tr><td>Non-profit / Section 8</td><td>Mission-driven org needing registration and ongoing compliance.</td><td>01</td><td>Later</td></tr>
+            <tr><td>Venture raising capital</td><td>Navigating term sheets, ESOPs, cap tables, FEMA and RBI.</td><td>01 + 02</td><td>Secondary</td></tr>
+          </tbody>
+        </table></div>
+        <h3>Core pain to value, per persona</h3>
+        <p>Founder: "I don't know what filings I owe or what this clause means" becomes a compliance calendar that never misses and a plain-language explainer beside every clause. Lawyer: "I lose nights to research and file assembly" becomes precedent search, statute mapping, and an organised case file, with judgment staying with counsel.</p>
+      </section>
+
+      <section class="prd-sec" id="prd-s4">
+        <div class="sec-no">Section 04</div>
+        <h2>Product architecture: the three pillars</h2>
+        <div class="aside"><b>Buyer discipline</b>Pillars 01 and 02 sell to founders. Pillar 03 sells to litigators. Different buyer, different sales motion, and a higher trust bar for Pillar 03: a case-research error in a criminal matter is a far more serious failure mode than a flawed template. Keep this distinction deliberate in copy, pricing, and QA.</div>
+        <h3>Pillar 01 · Legal Services: "Done right, not just fast."</h3>
+        <p>Human-delivered legal, compliance, and IP work through in-house lawyers, a CA, and a CS. Catalogue: incorporation and registration (Pvt Ltd, OPC, LLP, Section 8, conversions). Name and brand protection (RUN and SPICe+ Part A, trademark search, filing, opposition, renewals, copyright, patent assistance). Regulatory and tax registrations (GST, MSME and Udyam, IEC, FSSAI, Shops and Establishment, Professional Tax). Ongoing statutory compliance (ROC filings, board resolutions, registers, DIN, auditor appointment, AGM, GST returns). Corporate and fundraising advisory (founders' agreement, ESOP, cap table, term sheet review, FEMA and RBI, FC-GPR). Employment and HR legal (contracts, POSH, PF and ESI, labour advisory). Disputes and recovery (legal notices, payment recovery, mediation referral). Retainer and closure (Virtual GC, strike-off, winding up).</p>
+        <h3>Pillar 02 · DocEngine: "Prompt in. Drafted document out."</h3>
+        <p>Plain-language input becomes a well-drafted, India-specific legal document in minutes, with the option to bring in a Turn2Law lawyer when stakes rise. Core engine: prompt-to-document, guided Q&amp;A for founders unfamiliar with legal terms, an India-specific clause library updated as law changes. Template library (13+): NDA (mutual and one-way), MOU, founders' agreement, employment, consultancy, vendor and service agreements, privacy policy and terms, non-compete and non-solicit, IP assignment, shareholders' agreement, term sheet, lease, loan and promissory note. Intelligence: AI risk flagging on one-sided clauses, smart clause suggestions, a plain-language explainer beside every clause. Collaboration: multi-party review, e-signature, version history, PDF and DOCX export.</p>
+        <h3>Pillar 03 · Introspector: "The lawyer's missing bench."</h3>
+        <p>An AI research and strategy agent for practising lawyers. Case intake and organisation: digital case file, document repository, hearing and timeline tracker. Legal research: precedent search across judgments, statute and section recommendation across IPC and BNS, CrPC and BNSS, and the Evidence Act, a natural-language research assistant, a citation generator for filings. Case strategy: argument frameworks, counter-argument maps, cross-examination banks, deposition summarisation. Practice support: multi-user collaboration, a privileged document vault, outcome pattern analytics.</p>
+        <div class="aside"><b>Responsible-use rule, mandatory on all Introspector surfaces</b>The research and analytics support a lawyer's judgment. They do not replace it. Section recommendations and outcome patterns must be reviewed by qualified counsel before use in any filing or court.</div>
+        <h3>Legacy names</h3>
+        <p>Earlier materials used LawGPT and ComplianceOS. ComplianceOS maps to the compliance calendar inside Pillar 01. LawGPT's founder Q&amp;A is now DocEngine's guided Q&amp;A layer. DocEngine keeps its name as Pillar 02.</p>
+      </section>
+
+      <section class="prd-sec" id="prd-s5">
+        <div class="sec-no">Section 05</div>
+        <h2>Feature inventory and priorities</h2>
+        <p>Priority keys: P0 essential for a secure, usable launch · P1 next release · P2 later phase · R requires validation.</p>
+        <div class="tbl-scroll"><table class="tbl">
+          <thead><tr><th>ID</th><th>Feature</th><th>Pillar</th><th>Persona</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr><td>F-01</td><td>Secure multi-tenant account and org model</td><td>Platform</td><td>All</td><td>P0</td></tr>
+            <tr><td>F-02</td><td>Public marketing site and lead capture</td><td>Platform</td><td>Founder</td><td>P0</td></tr>
+            <tr><td>F-03</td><td>Client dashboard and workspace</td><td>Platform</td><td>Client</td><td>P0</td></tr>
+            <tr><td>F-04</td><td>Service catalogue, intake, and engagement</td><td>01</td><td>Founder</td><td>P0</td></tr>
+            <tr><td>F-05</td><td>Compliance calendar and reminders</td><td>01</td><td>Founder</td><td>P0</td></tr>
+            <tr><td>F-06</td><td>Document storage, versioning, e-signature</td><td>02</td><td>Founder</td><td>P0</td></tr>
+            <tr><td>F-07</td><td>DocEngine prompt-to-document + templates</td><td>02</td><td>Founder</td><td>P0</td></tr>
+            <tr><td>F-08</td><td>AI risk flagging and clause explainers</td><td>02</td><td>Founder</td><td>P1</td></tr>
+            <tr><td>F-09</td><td>Invoices, quotations, payment status</td><td>01</td><td>Client</td><td>P1</td></tr>
+            <tr><td>F-10</td><td>Introspector precedent search + statute map</td><td>03</td><td>Lawyer</td><td>P1</td></tr>
+            <tr><td>F-11</td><td>Introspector case file, timeline, vault</td><td>03</td><td>Lawyer</td><td>P1</td></tr>
+            <tr><td>F-12</td><td>Legal Library / Sources</td><td>Platform</td><td>Both</td><td>R</td></tr>
+            <tr><td>F-13</td><td>Introspector case strategy and analytics</td><td>03</td><td>Lawyer</td><td>P2</td></tr>
+            <tr><td>F-14</td><td>Multi-entity compliance for businesses</td><td>01</td><td>Business</td><td>P2</td></tr>
+            <tr><td>F-15</td><td>Campus Partner infrastructure</td><td>Platform</td><td>Partner</td><td>P2</td></tr>
+            <tr><td>F-16</td><td>Public API and integrations</td><td>Platform</td><td>Enterprise</td><td>P2</td></tr>
+          </tbody>
+        </table></div>
+        <p>Each feature carries, in the backlog: objective, user story, functional requirements, UI behaviour, backend logic, data model, API dependencies, permissions, security controls, error states, analytics, acceptance criteria, priority, dependencies. The backlog is produced as a separate tracker, not inline here.</p>
+      </section>
+
+      <section class="prd-sec" id="prd-s6">
+        <div class="sec-no">Section 06</div>
+        <h2>Public website and marketing site</h2>
+        <p>The marketing site communicates trust, expertise, confidentiality, and technical sophistication without looking like a generic law firm or an overdesigned AI startup. This site is the reference implementation.</p>
+        <h3>Sitemap</h3>
+        <p>Home · Platform overview · Legal Services · DocEngine · Introspector · Legal Library · Pricing · For Founders · For Businesses · For Legal Professionals · Campus Partner Program · About · Blog and insights · FAQ · Contact · Book a consultation · Request a demo · Login and signup · Privacy, Terms, and Disclaimers.</p>
+        <h3>Homepage section order, announcement bar to footer</h3>
+        <ul>
+          <li>Announcement bar: current cohort or launch note.</li>
+          <li>Sticky nav: logo, platform links, Log in, Book a consult.</li>
+          <li>Hero: "Legal infrastructure for founders and lawyers", one platform two audiences, two CTAs, faint N-arrow watermark.</li>
+          <li>Trust line and client strip: 5+ startups, in-house lawyers, CA and CS, named clients.</li>
+          <li>Problem: six-point framing of why legal help is built for people who already have it.</li>
+          <li>Three pillars: Legal Services, DocEngine, Introspector, each with buyer tag and capability chips.</li>
+          <li>Twelve core capabilities grid.</li>
+          <li>Who we serve: six segments.</li>
+          <li>Why Turn2Law: traditional versus Turn2Law comparison.</li>
+          <li>Roadmap: four phases.</li>
+          <li>Pricing teaser: honest, ₹18,000/year anchor plus per-engagement.</li>
+          <li>Campus Partner Program callout.</li>
+          <li>Closing CTA band: book a consult, request a demo, contact email.</li>
+          <li>Footer: platform and company links, statutory line, no GSTIN until active.</li>
+        </ul>
+        <h3>Per-page spec, applies to every page</h3>
+        <p>Purpose and audience, page hierarchy, navigation and journey, section-by-section content, headline and supporting copy, primary and secondary CTAs, visual assets, interaction behaviour, mobile layout, accessibility with a WCAG 2.2 AA target, SEO and performance budgets, conversion events and analytics.</p>
+      </section>
+
+      <section class="prd-sec" id="prd-s7">
+        <div class="sec-no">Section 07</div>
+        <h2>Identity, accounts, and roles</h2>
+        <p>Least privilege throughout. Internal roles must never automatically gain access to confidential client material. Access is granted per engagement.</p>
+        <h3>Capabilities</h3>
+        <p>Signup and login, email verification, secure password handling, password reset, risk-based MFA, passkeys where appropriate, session management with device history, account recovery, user profiles, organisation creation and invitations, org switching, role-based permissions, team membership, deactivation and deletion, audit history, suspicious-login detection, rate limiting and abuse prevention.</p>
+        <div class="tbl-scroll"><table class="tbl">
+          <thead><tr><th>Role</th><th>Client data</th><th>Documents</th><th>Billing</th><th>Admin</th></tr></thead>
+          <tbody>
+            <tr><td>Founder / Client</td><td>Own org only</td><td>Own org read and write</td><td>Own invoices</td><td>Org settings</td></tr>
+            <tr><td>Lawyer (assigned)</td><td>Assigned matters only</td><td>Assigned matters</td><td>None</td><td>None</td></tr>
+            <tr><td>CA / CS (assigned)</td><td>Assigned matters only</td><td>Assigned matters</td><td>None</td><td>None</td></tr>
+            <tr><td>Sales</td><td>Leads and pipeline only</td><td>None, no client docs</td><td>Quotations</td><td>None</td></tr>
+            <tr><td>Operations</td><td>Assignment metadata</td><td>Status only</td><td>Invoice status</td><td>None</td></tr>
+            <tr><td>HR</td><td>Internal team only</td><td>Internal only</td><td>None</td><td>None</td></tr>
+            <tr><td>Administrator</td><td>Policy, not content, by default</td><td>Break-glass, audited</td><td>Full</td><td>Full</td></tr>
+            <tr><td>Developer</td><td>None in production</td><td>None in production</td><td>None</td><td>Infra only</td></tr>
+          </tbody>
+        </table></div>
+        <div class="aside"><b>Access-control scenario</b>A Sales user can read a lead's intake summary but cannot open the client's uploaded documents. A Lawyer sees only matters they are assigned to. An Administrator opening client content triggers an audited break-glass event. These rules are enforced server-side. Frontend checks are never sufficient authorisation.</div>
+      </section>
+
+      <section class="prd-sec" id="prd-s8">
+        <div class="sec-no">Section 08</div>
+        <h2>Client dashboard and workspace</h2>
+        <p>The logged-in home. A founder managing one startup sees a focused view. A business managing several entities sees an entity switcher and aggregated compliance.</p>
+        <h3>Components</h3>
+        <p>Personalised dashboard, active matters and service requests, documents and folders, pending approvals and signatures, compliance deadlines, consultation bookings, messages, task assignments, invoices and payment status, service history, notifications, organisation members, saved research, AI conversation history, account settings, and a help centre.</p>
+        <h3>Widget specification</h3>
+        <p>Each widget defines its priority, data source, empty state, loading state, error state, and available actions. The default view puts the summary before the detail: upcoming compliance deadlines and pending signatures surface first, because those are the items that carry a consequence if missed.</p>
+      </section>
+
+      <section class="prd-sec" id="prd-s9">
+        <div class="sec-no">Section 09</div>
+        <h2>DocEngine (Pillar 02)</h2>
+        <p>Document lifecycle: upload and ingestion, file-type validation, OCR for scans, text extraction, classification, metadata extraction, clause identification, summarisation, risk and inconsistency detection, contract comparison, version control, drafting, template and clause-library management, redlining, comments, approvals, e-signature, export to PDF and DOCX, retention and deletion, activity logs.</p>
+        <h3>Behaviour</h3>
+        <p>AI-generated edits are presented as suggestions a user reviews, accepts, rejects, and audits. They are never applied silently. Automated issue spotting is distinguished from conclusions that require a qualified professional. Supported formats, size limits, processing statuses, previews, and side-by-side comparison are defined per file type with explicit error handling.</p>
+        <div class="aside"><b>Safety</b>Protect against prompt injection via uploaded documents, data leakage between customers, and hallucinated clauses. A model's confidence score is never treated as proof of legal accuracy.</div>
+      </section>
+
+      <section class="prd-sec" id="prd-s10">
+        <div class="sec-no">Section 10</div>
+        <h2>Introspector (Pillar 03)</h2>
+        <p>The lawyer's bench. Design scenario: a lawyer takes a criminal case with the next hearing eight months away. Between now and then someone must research similar cases, map applicable sections, organise the file, and build the argument. Introspector is built to be that bench.</p>
+        <h3>Findings model</h3>
+        <p>Every finding carries severity, supporting evidence, source location, confidence limitations, reviewer status, and a remediation or next-action workflow. Findings are never presented as guaranteed legal conclusions.</p>
+        <h3>Boundary with DocEngine</h3>
+        <p>DocEngine drafts and reviews documents for founders. Introspector researches and organises cases for lawyers. Shared primitives, document storage and clause and section references, are one service. The two products do not duplicate drafting or research surfaces.</p>
+        <div class="aside"><b>Responsible use</b>Research and analytics support counsel's judgment and never replace it. This line appears on every Introspector surface and in every exported report.</div>
+      </section>
+
+      <section class="prd-sec" id="prd-s11">
+        <div class="sec-no">Section 11</div>
+        <h2>Legal Services and operations (Pillar 01)</h2>
+        <p>How customers discover, request, purchase, and manage professional services, and how the delivery team is managed behind it.</p>
+        <h3>Client flow</h3>
+        <p>Service catalogue and eligibility, quote requests, consultation scheduling, intake questionnaires, document collection, conflict checks, engagement letters, scope and deliverables, professional assignment, milestone tracking, communications, review and approval, billing and invoices, dispute and escalation, completion and feedback.</p>
+        <h3>Professional management</h3>
+        <p>Lawyer, CA, and CS profiles, qualifications, availability, assignment, and permissions. Invoices follow the format T2L-INV-YYYY-NNN and carry the statutory block. No GSTIN appears until GST registration is confirmed active.</p>
+        <div class="aside"><b>Validate with counsel</b>Professional-conduct, advertising, referral, fee-sharing, confidentiality, and engagement rules for lawyers, CAs, and CS professionals in India constrain which marketplace and fee models are permissible. Flag every such arrangement for review rather than assuming it is allowed.</div>
+      </section>
+
+      <section class="prd-sec" id="prd-s12">
+        <div class="sec-no">Section 12</div>
+        <h2>Legal Library and Sources</h2>
+        <p>A research and knowledge surface: acts and statutes, rules and regulations, notifications and circulars, judgments, government publications, regulatory updates, topic explainers, search and filtering, source and jurisdiction metadata, publication and effective dates, amendment history, saved sources, shareable citations, related documents, and update alerts. Each source carries provenance, a freshness indicator, and version tracking.</p>
+        <div class="aside"><b>Validate before ingestion</b>Prioritise authoritative Indian sources: official legislation portals, India Code, court sites, regulator publications. Identify licensing and access limits before any large-scale ingestion. Copyright and database licensing govern what can be stored and served.</div>
+      </section>
+
+      <section class="prd-sec" id="prd-s13">
+        <div class="sec-no">Section 13</div>
+        <h2>Compliance calendar</h2>
+        <p>The ComplianceOS capability inside Pillar 01. Entity profiles, compliance calendars, deadline reminders, recurring obligations, task assignment, responsible-person tracking, document evidence, filing status, approval workflows, escalation rules, reports, regulatory-change alerts, multi-entity support, audit trails, and professional-assisted execution.</p>
+        <p>Obligations map to entity type, jurisdiction, applicable law, and effective dates, and are not generated as definitive without sufficient entity information and verified sources.</p>
+      </section>
+
+      <section class="prd-sec" id="prd-s14">
+        <div class="sec-no">Section 14</div>
+        <h2>Design system and tokens</h2>
+        <p>The rule of the system: gold on white, nothing louder. White dominates. Gold rarely exceeds one accent moment per screen.</p>
+        <div class="tbl-scroll"><table class="tbl">
+          <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+          <tbody>
+            <tr><td>Primary Gold</td><td>#D8AB5B</td><td>CTAs, highlights, the pillar mark, one accent per screen</td></tr>
+            <tr><td>Dark Text</td><td>#111111</td><td>Headings and primary copy</td></tr>
+            <tr><td>White</td><td>#FFFFFF</td><td>Backgrounds and surfaces</td></tr>
+            <tr><td>Secondary Gray</td><td>#6F6F6F</td><td>Body and supporting copy</td></tr>
+            <tr><td>Light Gray</td><td>#EAEAEA</td><td>Borders and dividers</td></tr>
+            <tr><td>Navy, digital only</td><td>#0A1628</td><td>Dark product surfaces where a dark band is needed</td></tr>
+          </tbody>
+        </table></div>
+        <h3>Typography</h3>
+        <p>Poppins SemiBold and Bold for headings and display, tight tracking, sentence case. Inter Regular and Medium for body, line height 1.6 and above. DM Mono for eyebrows, labels, metadata, and the statutory line. Manrope is the only permitted fallback.</p>
+        <h3>Hard rules</h3>
+        <ul>
+          <li>No em dashes anywhere.</li>
+          <li>SVG line icons only, never emoji.</li>
+          <li>Single-file HTML for web deliverables, CSS and JS inline, images base64.</li>
+          <li>The N-arrow mark appears exactly as supplied, with clear space equal to the height of the T, and no effects.</li>
+          <li>Full legal name on statutory documents. "Turn2Law" is the brand name elsewhere.</li>
+        </ul>
+        <div class="aside"><b>Accessibility</b>Gold on white fails small-text contrast, so gold is used for fills and large elements. Gold as text uses the darker #8A6A2F. Define every colour as a token and support light and dark.</div>
+      </section>
+
+      <section class="prd-sec" id="prd-s15">
+        <div class="sec-no">Section 15</div>
+        <h2>Technical architecture</h2>
+        <p>A modular monolith that is right for the current team and can split later, not a premature microservice mesh. All stack choices below are recommendations to confirm with the CTO, not fixed decisions.</p>
+        <div class="tbl-scroll"><table class="tbl">
+          <thead><tr><th>Layer</th><th>Recommendation</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>Frontend</td><td>Next.js + TypeScript</td><td>One framework for marketing and app. SSR for SEO and speed.</td></tr>
+            <tr><td>Backend</td><td>Next.js API / Node services, typed end to end</td><td>Shared types. Small team velocity.</td></tr>
+            <tr><td>Database</td><td>PostgreSQL, managed, ap-south-1</td><td>Relational integrity. Data residency in India.</td></tr>
+            <tr><td>Cache / jobs</td><td>Redis + a queue for background work</td><td>Document processing and reminders are async.</td></tr>
+            <tr><td>Object storage</td><td>S3-compatible, private, signed URLs</td><td>Documents never served from public buckets.</td></tr>
+            <tr><td>Search / retrieval</td><td>Postgres FTS now, vector store when retrieval lands</td><td>Avoid premature complexity.</td></tr>
+            <tr><td>AI orchestration</td><td>Provider-abstracted service layer</td><td>Swap models. Isolate per-tenant retrieval.</td></tr>
+            <tr><td>Payments</td><td>Razorpay</td><td>India-first payment flows.</td></tr>
+            <tr><td>Hosting</td><td>Vercel for web + managed India-region services</td><td>Matches current deployment footprint.</td></tr>
+            <tr><td>Observability</td><td>Centralised logs, metrics, traces, error reporting</td><td>Operational ownership from day one.</td></tr>
+          </tbody>
+        </table></div>
+        <p>Behaviour under dependency failure is defined per integration: if an AI provider, payment gateway, email service, or document processor is unavailable, the system degrades gracefully. Queue and retry, show status, never lose a document or a filing deadline.</p>
+      </section>
+
+      <section class="prd-sec" id="prd-s16">
+        <div class="sec-no">Section 16</div>
+        <h2>Data model</h2>
+        <p>Core entities, every one scoped to a tenant. Tenant isolation is enforced by foreign keys and row-level checks, never by the frontend.</p>
+        <div class="tbl-scroll"><table class="tbl">
+          <thead><tr><th>Entity</th><th>Key relationships</th><th>Access</th></tr></thead>
+          <tbody>
+            <tr><td>Organization</td><td>has many Users via Membership</td><td>Tenant root</td></tr>
+            <tr><td>User</td><td>belongs to Orgs, has Role per Org</td><td>Self + org admins</td></tr>
+            <tr><td>Membership</td><td>User × Org × Role</td><td>Org admins</td></tr>
+            <tr><td>Matter / ServiceRequest</td><td>Org, assigned Professionals</td><td>Org + assigned</td></tr>
+            <tr><td>Document / DocumentVersion</td><td>Org, Matter, permissions</td><td>Scoped per matter</td></tr>
+            <tr><td>AIConversation / Message</td><td>User, Org, isolated index</td><td>Owner only</td></tr>
+            <tr><td>Source / Citation</td><td>Library, linked to answers</td><td>Shared, read</td></tr>
+            <tr><td>ComplianceObligation / Task</td><td>Org entity, owner, deadline</td><td>Org + assigned</td></tr>
+            <tr><td>Engagement / Quotation</td><td>Org, scope, professional</td><td>Org + sales</td></tr>
+            <tr><td>Invoice / Payment</td><td>Org, engagement</td><td>Org + finance</td></tr>
+            <tr><td>AuditEvent</td><td>actor, target, immutable</td><td>Admin, append-only</td></tr>
+          </tbody>
+        </table></div>
+        <p>Constraints: foreign keys on every tenant link, indexes on org and matter, soft-delete where retention requires it, forward-only migrations, and protection against insecure direct object references on every document and matter route. Passwords are hashed, never stored in plaintext.</p>
+      </section>
+
+      <section class="prd-sec" id="prd-s17">
+        <div class="sec-no">Section 17</div>
+        <h2>API conventions</h2>
+        <p>Every endpoint states method and route, authentication, authorisation checks, request and response schemas, validation, pagination, rate limits, idempotency, error shape, and audit requirement.</p>
+        <div class="tbl-scroll"><table class="tbl">
+          <thead><tr><th>Area</th><th>Representative endpoint</th><th>Authz</th></tr></thead>
+          <tbody>
+            <tr><td>Auth</td><td>POST /auth/login, /auth/refresh</td><td>Public, rate-limited</td></tr>
+            <tr><td>Org</td><td>POST /orgs, /orgs/:id/invites</td><td>Org admin</td></tr>
+            <tr><td>Documents</td><td>GET /orgs/:id/documents/:docId</td><td>Matter-scoped, signed URL</td></tr>
+            <tr><td>DocEngine</td><td>POST /docengine/draft</td><td>Org member, per-tenant context</td></tr>
+            <tr><td>Legal search</td><td>GET /library/search</td><td>Member, no cross-tenant data</td></tr>
+            <tr><td>Service requests</td><td>POST /matters</td><td>Org member</td></tr>
+            <tr><td>Compliance</td><td>GET /orgs/:id/obligations</td><td>Org + assigned</td></tr>
+            <tr><td>Billing</td><td>POST /invoices/:id/pay</td><td>Org finance, idempotent</td></tr>
+          </tbody>
+        </table></div>
+        <p>Versioning, documented schemas, webhook signature validation, retries with timeouts, and secret management apply across all integrations: AI providers, Razorpay, e-signature, email, calendars.</p>
+      </section>
+
+      <section class="prd-sec" id="prd-s18">
+        <div class="sec-no">Section 18</div>
+        <h2>Security threat model and controls</h2>
+        <p>Assessed with STRIDE, supplemented by OWASP. Each risk below names a control. The full model lists scenario, impact, likelihood, preventive and detective controls, response, and test.</p>
+        <div class="tbl-scroll"><table class="tbl">
+          <thead><tr><th>Risk</th><th>Primary control</th></tr></thead>
+          <tbody>
+            <tr><td>Cross-tenant data exposure</td><td>Row-level tenant checks, per-tenant retrieval indexes, IDOR tests on every route</td></tr>
+            <tr><td>Insecure document URLs</td><td>Private storage, short-lived signed URLs only</td></tr>
+            <tr><td>Malicious file uploads</td><td>Type validation, malware scanning, sandboxed processing</td></tr>
+            <tr><td>Prompt injection via documents</td><td>Content isolation, instruction stripping, output review before action</td></tr>
+            <tr><td>Account takeover / session theft</td><td>Risk-based MFA, secure cookies, session binding, anomaly detection</td></tr>
+            <tr><td>Privilege escalation</td><td>Least privilege, server-side authz, audited break-glass</td></tr>
+            <tr><td>Injection: SQL, XSS, CSRF, SSRF</td><td>Parameterised queries, output encoding, CSP, request allow-listing</td></tr>
+            <tr><td>Supply chain / dependencies</td><td>Pinned versions, dependency and container scanning</td></tr>
+            <tr><td>Secrets exposure</td><td>Managed secrets, no secrets in code or logs, rotation</td></tr>
+            <tr><td>Audit-log tampering</td><td>Append-only, access-controlled audit store</td></tr>
+          </tbody>
+        </table></div>
+        <p>Controls to implement before launch: encryption in transit and at rest, key management and rotation, password hashing, MFA, session security, least-privilege authz, tenant isolation, signed file URLs, malware scanning, rate limiting, input validation, output encoding, CSP and secure headers, secrets management, dependency and container scanning, audit logging, backup encryption, and an incident-response runbook. Penetration testing and a vulnerability-disclosure path are ongoing operational owners.</p>
+      </section>
+
+      <section class="prd-sec" id="prd-s19">
+        <div class="sec-no">Section 19</div>
+        <h2>Privacy and Indian regulatory</h2>
+        <p>Turn2Law processes sensitive legal, financial, personal, and business documents, so privacy is an architectural principle, not a policy footnote.</p>
+        <h3>Privacy by design</h3>
+        <p>Data classification, minimisation, and purpose limitation. Consent and notices where required. Data ownership and access. Retention and deletion. User export and account deletion. Backup-deletion limits. Data residency in India. A named subprocessor list. Privacy impact assessments. Breach response. Periodic access reviews. A ban on using production data in development or testing.</p>
+        <h3>AI data handling</h3>
+        <p>Specify whether user data is sent to third-party models, provider retention and training policies, customer-controlled AI settings where feasible, redaction before model calls, and strict separation of customer data across retrieval indexes so one user's conversation can never retrieve another's.</p>
+        <div class="aside"><b>Do not overclaim</b>Do not claim zero-knowledge or end-to-end encryption, or that data is never used for model training, unless the architecture and provider contracts actually support it.</div>
+        <h3>Regulatory obligations, validate with counsel</h3>
+        <p>Likely applicable: the Digital Personal Data Protection Act 2023 and its rules and commencement provisions, the Information Technology Act and rules, CERT-In incident-reporting directions, consumer-protection and e-commerce requirements, payment obligations tied to the chosen model, copyright and database licensing, electronic-record and e-signature requirements, contractual confidentiality, and professional-conduct rules for lawyers, CAs, and CS professionals. The precise obligations depend on Turn2Law's business model, data flows, professional arrangements, and customer types, and must be confirmed by qualified Indian legal, privacy, and security professionals. This PRD is not a substitute for that advice.</p>
+      </section>
+
+      <section class="prd-sec" id="prd-s20">
+        <div class="sec-no">Section 20</div>
+        <h2>AI safety and evaluation</h2>
+        <p>AI output is decision support, and the product says so plainly. Quality is measured, not assumed.</p>
+        <p>Evaluation covers legal accuracy, citation correctness, source freshness, retrieval relevance, hallucination rate, refusal quality, prompt-injection resistance, cross-tenant leakage, reproducibility and version tracking, human review, model-provider changes, and cost and latency. Each has a benchmark set, test cases, a threshold, a release gate, monitoring, and a rollback path.</p>
+        <p>Adversarial tests use malicious documents, conflicting legal sources, outdated laws, fabricated citations, ambiguous questions, and attempts to extract another customer's information. A finding that cannot be grounded in a verifiable source is refused or escalated, not answered with false confidence.</p>
+      </section>
+
+      <section class="prd-sec" id="prd-s21">
+        <div class="sec-no">Section 21</div>
+        <h2>Roadmap and 30/60/90</h2>
+        <p>Sequenced, not simultaneous. Each phase earns the next.</p>
+        <div class="tbl-scroll"><table class="tbl">
+          <thead><tr><th>Phase</th><th>Focus</th><th>Exit criteria</th></tr></thead>
+          <tbody>
+            <tr><td>1 · Now</td><td>Ship and harden Legal Services + DocEngine behind a secure multi-tenant foundation and the public site</td><td>First cohort live. P0 features pass security and acceptance tests.</td></tr>
+            <tr><td>2 · Next</td><td>Introspector closed pilot with practising lawyers, starting with Adv. Pranav's network</td><td>Validated research accuracy and section recommendations.</td></tr>
+            <tr><td>3 · Unify</td><td>All three pillars on shared account infrastructure</td><td>Founder compliance data and lawyer case data on one system.</td></tr>
+            <tr><td>4 · Beyond</td><td>Deeper automation across compliance and case workflows, nationwide scale</td><td>Repeatable, monitored, cost-controlled growth.</td></tr>
+          </tbody>
+        </table></div>
+        <h3>30 / 60 / 90 for Phase 1</h3>
+        <p><b>First 30 days:</b> product discovery, architecture and threat model sign-off, design-system build, marketing site live, auth and org model in staging. <b>By 60:</b> client dashboard, service intake and engagement, compliance calendar, document storage with signed URLs. <b>By 90:</b> DocEngine drafting with the core template set, invoicing, first external cohort onboarded behind the full P0 security controls. Estimates are ranges and assume the current team. They are not committed dates.</p>
+      </section>
+
+      <section class="prd-sec" id="prd-s22">
+        <div class="sec-no">Section 22</div>
+        <h2>Team and ownership</h2>
+        <div class="tbl-scroll"><table class="tbl">
+          <thead><tr><th>Area</th><th>Owner</th></tr></thead>
+          <tbody>
+            <tr><td>Final approval, strategy, equity, investors</td><td>Yash Phoghat, Founder and CEO</td></tr>
+            <tr><td>Day-to-day operations, cross-pillar coordination</td><td>Lakshit Raj, GM, Founder's Office</td></tr>
+            <tr><td>Technology and DocEngine build</td><td>Hanush Singh R, CTO, with Akshay Kumar, AI-ML</td></tr>
+            <tr><td>AI layer across DocEngine and Introspector</td><td>Akshay Kumar, AI-ML Head</td></tr>
+            <tr><td>Legal Services and domain validation</td><td>Vikrant Singh and Harsh Mehrotra, Legal Heads, with Adv. Pranav Sri Krishna B</td></tr>
+            <tr><td>Operations and finance tracking</td><td>Ishan Sharma, reports to Lakshit</td></tr>
+            <tr><td>People</td><td>Malvi Sood and Aditi Thakur, HR</td></tr>
+          </tbody>
+        </table></div>
+        <p>Scale: 43 active members across 7 departments and 12 domains. Escalate to Yash for strategic decisions, new hires and equity, investor communications, legal notices, and strategic partnerships. The Founder's Office, Lakshit, carries full day-to-day authority on everything else.</p>
+        <div class="aside"><b>Hiring gap to flag</b>A dedicated security owner and a privacy and compliance lead are prerequisites for the controls in Sections 18 and 19. Confirm whether these are in-team or external.</div>
+      </section>
+
+      <section class="prd-sec" id="prd-s23">
+        <div class="sec-no">Section 23</div>
+        <h2>Pricing and monetization</h2>
+        <p>Treat prices as hypotheses to validate. The only committed figure today is the annual ROC compliance package.</p>
+        <div class="tbl-scroll"><table class="tbl">
+          <thead><tr><th>Line</th><th>Model</th><th>Anchor</th></tr></thead>
+          <tbody>
+            <tr><td>Legal Services</td><td>Fixed-scope + annual retainer</td><td>ROC compliance ₹18,000/year</td></tr>
+            <tr><td>DocEngine</td><td>Per-document and subscription tiers</td><td>Per engagement, first cohort</td></tr>
+            <tr><td>Introspector</td><td>Subscription after pilot</td><td>Pilot, not yet priced</td></tr>
+            <tr><td>Enterprise / multi-entity</td><td>Custom</td><td>Quote</td></tr>
+          </tbody>
+        </table></div>
+        <p>Plan boundaries, usage limits, upgrade triggers, and abuse controls are defined per line. Pricing must account for AI inference cost, document-processing cost, support, professional delivery, and compliance overhead, so unit economics stay positive per completed workflow. Final pricing is confirmed in writing before any work begins.</p>
+      </section>
+
+      <section class="prd-sec" id="prd-s24">
+        <div class="sec-no">Section 24</div>
+        <h2>Analytics and KPIs</h2>
+        <p>Measure value delivered, never the contents of a confidential document or conversation.</p>
+        <p>Signup conversion, activation, time to first value, AI feature adoption, document completion, research success, service-request conversion, retention, paid conversion, customer satisfaction, support response time, professional-service completion, AI citation accuracy, security incidents, system reliability, and cost per completed workflow. Each metric defines its event name, properties, consent handling, retention, dashboard, and owner.</p>
+        <div class="aside"><b>Hard rule</b>Do not collect legal document contents or confidential conversation text in analytics unless explicitly justified, protected, and legally permissible.</div>
+      </section>
+
+      <section class="prd-sec" id="prd-s25">
+        <div class="sec-no">Section 25</div>
+        <h2>Risk register</h2>
+        <div class="tbl-scroll"><table class="tbl">
+          <thead><tr><th>Risk</th><th>Impact</th><th>Mitigation</th></tr></thead>
+          <tbody>
+            <tr><td>AI gives a wrong legal answer with confidence</td><td>High</td><td>Source grounding, refusal on low evidence, human review, responsible-use labelling</td></tr>
+            <tr><td>Cross-tenant data leak</td><td>Critical</td><td>Per-tenant isolation and retrieval, IDOR testing, audit logging</td></tr>
+            <tr><td>Marketplace fee model breaches professional rules</td><td>High</td><td>Counsel review before launch, adjust model to comply</td></tr>
+            <tr><td>GST still pending at launch</td><td>Medium</td><td>No GSTIN printed until active, resolve the SRM CRC electricity-bill blocker</td></tr>
+            <tr><td>Source licensing blocks Library ingestion</td><td>Medium</td><td>Confirm licensing before ingestion, start with public authoritative sources</td></tr>
+            <tr><td>Security ownership gap</td><td>High</td><td>Name a security owner before onboarding external cohort</td></tr>
+            <tr><td>Scope creep beyond the three pillars</td><td>Medium</td><td>Pillar-fit test gates every feature</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section class="prd-sec" id="prd-s26">
+        <div class="sec-no">Section 26</div>
+        <h2>Open questions for founder approval</h2>
+        <ul>
+          <li>Confirm pillar ownership assignments, Section 22, before publishing any org-facing material.</li>
+          <li>Decide the marketplace fee and assignment model after counsel review of professional-conduct rules.</li>
+          <li>Approve the Phase 1 tech stack, Section 15, with the CTO, or substitute with reasons.</li>
+          <li>Set DocEngine and Introspector pricing boundaries, or keep them per-engagement for the first cohort.</li>
+          <li>Confirm the data-residency and subprocessor list, including which AI providers may receive user data.</li>
+          <li>Decide whether a security owner and privacy lead are in-team or external before external onboarding.</li>
+          <li>Resolve the GST blocker, the SRM CRC electricity bill, so the GSTIN can be added when active.</li>
+          <li>Confirm which Legal Library sources are licensed for ingestion.</li>
+        </ul>
+      </section>
+
+      <section class="prd-sec" id="prd-s27">
+        <div class="sec-no">Section 27</div>
+        <h2>Launch checklist, Phase 1</h2>
+        <div class="tbl-scroll"><table class="tbl">
+          <thead><tr><th>Gate</th><th>Requirement</th></tr></thead>
+          <tbody>
+            <tr><td>Security</td><td>Encryption, MFA, tenant isolation, signed URLs, malware scanning, audit logging, dependency scan, pen-test pass</td></tr>
+            <tr><td>Privacy</td><td>DPDP-aligned notices and consent, retention and deletion, export, no production data in test</td></tr>
+            <tr><td>Legal</td><td>Counsel sign-off on marketplace model, engagement terms, disclaimers. No GSTIN unless active.</td></tr>
+            <tr><td>Product</td><td>P0 features pass acceptance tests. Dashboard, intake, compliance calendar, DocEngine core live.</td></tr>
+            <tr><td>AI</td><td>Eval thresholds met. Refusal and citation behaviour verified. Responsible-use labels present.</td></tr>
+            <tr><td>Ops</td><td>Monitoring, alerting, on-call, backups tested, incident runbook, RTO and RPO defined</td></tr>
+            <tr><td>Brand</td><td>Gold-on-white system applied. Statutory line correct. No em dashes. Real logo in place.</td></tr>
+          </tbody>
+        </table></div>
+        <div class="aside"><b>Definition of done</b>A capable product and engineering team can read this PRD and know what to build, how it should look and behave, how to secure it, and in what order. Where that is not yet true, the open questions in Section 26 are the gaps to close.</div>
+        <p style="font-size:13px;color:var(--gray);margin-top:20px">Prepared for the Turn2Law Founder's Office. Canonical brand source: Brand Overview v1.0, July 2026. This document is a working product specification and does not constitute legal advice.</p>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+(function(){
+  var nav=document.getElementById('nav');
+  var burger=document.getElementById('burger');
+  var mmenu=document.getElementById('mmenu');
+  var body=document.body;
+
+  // sticky nav border
+  window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>8)},{passive:true});
+
+  // mobile menu
+  burger.addEventListener('click',function(){mmenu.classList.toggle('open')});
+  mmenu.addEventListener('click',function(e){if(e.target.tagName==='A')mmenu.classList.remove('open')});
+
+  // PRD view routing
+  function inPrd(hash){return hash==='#prd'||hash.indexOf('#prd-s')===0}
+  function syncView(keepScroll){
+    var prd=inPrd(location.hash);
+    body.classList.toggle('view-prd',prd);
+    if(!keepScroll)window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange',function(){
+    syncView(false);
+    if(location.hash.indexOf('#prd-s')===0){
+      var el=document.getElementById(location.hash.slice(1));
+      if(el)el.scrollIntoView();
+    }
+  });
+  syncView(true);
+
+  // leaving PRD via logo / back link
+  window.leavePrd=function(e){
+    if(e)e.preventDefault();
+    history.replaceState(null,'','#top');
+    body.classList.remove('view-prd');
+    window.scrollTo(0,0);
+  };
+
+  // nav PRD link: default hash behaviour handles it via hashchange
+
+  // sidebar active highlight
+  var links=document.querySelectorAll('#prd-side a');
+  var secs=[].map.call(links,function(a){return document.getElementById(a.getAttribute('href').slice(1))});
+  function highlight(){
+    if(!body.classList.contains('view-prd'))return;
+    var y=window.scrollY+90,i=0;
+    for(var k=0;k<secs.length;k++){if(secs[k]&&secs[k].offsetTop<=y)i=k}
+    links.forEach(function(a,idx){a.classList.toggle('active',idx===i)});
+  }
+  window.addEventListener('scroll',highlight,{passive:true});
+
+  // reveal on scroll
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}})
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+  }else{
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in')});
+  }
+})();
+</script>
+</body>
+</html>
